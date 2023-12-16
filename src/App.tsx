@@ -2,10 +2,18 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-
 import styled from '@emotion/styled'
+
 import { ThemeProvider } from '@emotion/react';
 import { standardTheme } from './theme';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+
+library.add(fab, fas, far)
 
 const StyledPara = styled.p(
   ({ theme }): string => {
@@ -24,6 +32,7 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
           <StyledPara>
             Edit <code>src/App.tsx</code> and save to reload.
+            <FontAwesomeIcon color='#ff00ff' icon='magnifying-glass' />
           </StyledPara>
           <a
             className="App-link"
