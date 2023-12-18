@@ -1,11 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import logo from './logo.svg'
+import './App.css'
 
 import styled from '@emotion/styled'
 
-import { ThemeProvider } from '@emotion/react';
-import { standardTheme } from './theme';
+import { ThemeProvider } from '@emotion/react'
+import { standardTheme } from './theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -20,11 +20,25 @@ const StyledPara = styled.p(
     return `
       color: ${theme.palette.colors.red.main};
       background-color: ${theme.palette.colors.green.main};
+      padding: ${theme.spacing.xl}px ${theme.spacing.sm}px;
+      border-radius: ${theme.border.radius.lg}px;
+      border: ${theme.border.width.md}px ${theme.palette.colors.red.main} solid;
     `
   }
 )
 
-function App() {
+const JohnnaChanPara = styled.p(
+  ({ theme }): string => {
+    return `
+      color: ${theme.palette.colors.pink.main};
+      background-color: ${theme.palette.colors.grey.main};
+      padding: ${theme.spacing.lg}px;
+      border-radius: ${theme.border.radius.md}px;
+  `
+  }
+)
+
+function App(): JSX.Element {
   return (
     <ThemeProvider theme={standardTheme}>
       <div className="App">
@@ -34,6 +48,7 @@ function App() {
             Edit <code>src/App.tsx</code> and save to reload.
             <FontAwesomeIcon color='#ff00ff' icon='magnifying-glass' />
           </StyledPara>
+          <JohnnaChanPara>John is stinky pooey</JohnnaChanPara>
           <a
             className="App-link"
             href="https://reactjs.org"
@@ -45,7 +60,7 @@ function App() {
         </header>
       </div>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App

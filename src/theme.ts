@@ -15,6 +15,19 @@ interface OrdinalColor {
   muted?: string
 }
 
+interface Sizing {
+  sm: number
+  md: number
+  lg: number
+}
+
+interface ExtraSizing extends Sizing {
+  xxs: number
+  xs: number
+  xl: number
+  xxl: number
+}
+
 export interface StandardTheme {
   palette: {
     primary: OrdinalColor,
@@ -32,6 +45,11 @@ export interface StandardTheme {
       blue: Color
     } & Record<string, Color>,
   },
+  border: {
+    width: Sizing
+    radius: Sizing
+  },
+  spacing: ExtraSizing
 }
 
 // todo: add more theme properties; font, spacing, border, etc.
@@ -70,6 +88,30 @@ export const standardTheme: StandardTheme = {
         main: '#243853',
         dark: '#071126'
       },
+      pink: {
+        main: '#DE3163'
+      }
     }
+  },
+  border: {
+    width: {
+      sm: 1,
+      md: 2,
+      lg: 4
+    },
+    radius: {
+      sm: 8,
+      md: 16,
+      lg: 24
+    }
+  },
+  spacing: {
+    xxs: 4,
+    xs: 8,
+    sm: 12,
+    md: 16,
+    lg: 20,
+    xl: 24,
+    xxl: 28
   }
 }
