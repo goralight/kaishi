@@ -43,7 +43,8 @@ export interface StandardTheme {
       red: Color
       green: Color
       blue: Color
-    } & Record<string, Color>,
+      pink: Color
+    },
   },
   border: {
     width: Sizing
@@ -51,8 +52,6 @@ export interface StandardTheme {
   },
   spacing: ExtraSizing
 }
-
-// todo: add more theme properties; font, spacing, border, etc.
 
 export const standardTheme: StandardTheme = {
   palette: {
@@ -71,8 +70,8 @@ export const standardTheme: StandardTheme = {
       grey: {
         white: '#f5f5f5',
         light: '#aeaeae',
-        main: '#bdbdbd',
-        dark: '#757575',
+        main: '#888888',
+        dark: '#474747',
         black: '#212121'
       } as GreyColor,
       red: {

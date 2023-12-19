@@ -1,12 +1,8 @@
 import React from 'react'
-import logo from './logo.svg'
-import './App.css'
 
-import styled from '@emotion/styled'
-
-import { ThemeProvider } from '@emotion/react'
+import { ThemeProvider, Global, css, useTheme } from '@emotion/react'
 import { standardTheme } from './theme'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -15,49 +11,25 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 library.add(fab, fas, far)
 
-const StyledPara = styled.p(
-  ({ theme }): string => {
-    return `
-      color: ${theme.palette.colors.red.main};
-      background-color: ${theme.palette.colors.green.main};
-      padding: ${theme.spacing.xl}px ${theme.spacing.sm}px;
-      border-radius: ${theme.border.radius.lg}px;
-      border: ${theme.border.width.md}px ${theme.palette.colors.red.main} solid;
-    `
-  }
-)
+const GlobalStyles = (): JSX.Element => {
+  const theme = useTheme()
+  return (
+    <Global styles={css`
+      body {
+        color: ${theme.palette.colors.grey.white};
+        background-color: ${theme.palette.colors.grey.black};
+      }
+    `} />
+  )
+}
 
-const JohnnaChanPara = styled.p(
-  ({ theme }): string => {
-    return `
-      color: ${theme.palette.colors.pink.main};
-      background-color: ${theme.palette.colors.grey.main};
-      padding: ${theme.spacing.lg}px;
-      border-radius: ${theme.border.radius.md}px;
-  `
-  }
-)
-
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   return (
     <ThemeProvider theme={standardTheme}>
+      <GlobalStyles />
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <StyledPara>
-            Edit <code>src/App.tsx</code> and save to reload.
-            <FontAwesomeIcon color='#ff00ff' icon='magnifying-glass' />
-          </StyledPara>
-          <JohnnaChanPara>John is stinky pooey</JohnnaChanPara>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <header className="App-header"></header>
+        {/* button for settings */}
       </div>
     </ThemeProvider>
   )
