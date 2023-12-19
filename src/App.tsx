@@ -1,7 +1,5 @@
 import React from 'react'
 
-import styled from '@emotion/styled'
-
 import { ThemeProvider, Global, css, useTheme } from '@emotion/react'
 import { standardTheme } from './theme'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
