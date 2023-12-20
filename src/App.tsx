@@ -14,12 +14,14 @@ library.add(fab, fas, far)
 const GlobalStyles = (): JSX.Element => {
   const theme = useTheme()
   return (
-    <Global styles={css`
-      body {
-        color: ${theme.palette.colors.grey.white};
-        background-color: ${theme.palette.colors.grey.black};
-      }
-    `} />
+    <Global styles={
+      css`
+        body {
+          color: ${theme.palette.mode === 'dark' ? theme.palette.colors.grey.white : theme.palette.colors.grey.black};
+          background-color: ${theme.palette.colors.grey.black};
+        }
+      `
+    } />
   )
 }
 

@@ -36,6 +36,7 @@ export interface Colors {
 
 export interface StandardTheme {
   palette: {
+    mode: 'light' | 'dark'
     primary: Color,
     secondary: Color,
     tertiary?: Color,
@@ -50,15 +51,16 @@ export interface StandardTheme {
 
 export const standardTheme: StandardTheme = {
   palette: {
+    mode: 'dark',
     primary: {
-      light: '',
+      light: '#000000',
       main: '#008a52',
-      dark: ''
+      dark: '#000000'
     },
     secondary: {
-      light: '',
+      light: '#000000',
       main: '#70bd91',
-      dark: ''
+      dark: '#000000'
     },
     colors: {
       grey: {
@@ -69,39 +71,39 @@ export const standardTheme: StandardTheme = {
         black: '#212121'
       } as GreyColor,
       success: {
-        light: '',
+        light: '#000000',
         main: '#70bd91',
         dark: '#071126'
       },
       error: {
-        light: '',
+        light: '#000000',
         main: '#c52425',
-        dark: ''
+        dark: '#000000'
       },
       warning: {
-        light: '',
+        light: '#000000',
         main: '#fac900',
-        dark: ''
+        dark: '#000000'
       },
       red: {
-        light: '#9a360e',
-        main: '#ff4600',
-        dark: '#c52425'
+        light: '#dd3333',
+        main: '#d50000',
+        dark: '#950000'
       },
       green: {
         light: '#94d1b4',
         main: '#008a52',
-        dark: ''
+        dark: '#000000'
       },
       blue: {
-        light: '',
+        light: '#000000',
         main: '#243853',
         dark: '#071126'
       },
       pink: {
-        light: '',
+        light: '#000000',
         main: '#DE3163',
-        dark: ''
+        dark: '#000000'
       }
     }
   },
