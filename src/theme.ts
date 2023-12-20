@@ -1,50 +1,45 @@
-interface Color {
-  light?: string
+export interface Color {
+  light: string
   main: string
-  dark?: string
+  dark: string
 }
 
-interface GreyColor extends Color {
+export interface GreyColor extends Color {
   white: string
   black: string
 }
 
-interface OrdinalColor {
-  pastel?: string
-  main: string
-  muted?: string
-}
-
-interface Sizing {
+export interface Sizing {
   sm: number
   md: number
   lg: number
 }
 
-interface ExtraSizing extends Sizing {
+export interface ExtraSizing extends Sizing {
   xxs: number
   xs: number
   xl: number
   xxl: number
 }
 
+export interface Colors {
+  grey: GreyColor
+  success: Color
+  error: Color
+  warning: Color
+  red: Color
+  green: Color
+  blue: Color
+  pink: Color
+  // add more if needed
+}
+
 export interface StandardTheme {
   palette: {
-    primary: OrdinalColor,
-    secondary: OrdinalColor,
-    tertiary?: OrdinalColor,
-    state?: {
-      success: string,
-      error: string,
-      warning: string,
-    },
-    colors: {
-      grey: GreyColor
-      red: Color
-      green: Color
-      blue: Color
-      pink: Color
-    },
+    primary: Color,
+    secondary: Color,
+    tertiary?: Color,
+    colors: Colors
   },
   border: {
     width: Sizing
@@ -56,15 +51,14 @@ export interface StandardTheme {
 export const standardTheme: StandardTheme = {
   palette: {
     primary: {
-      main: '#008a52'
+      light: '',
+      main: '#008a52',
+      dark: ''
     },
     secondary: {
-      main: '#70bd91'
-    },
-    state: {
-      success: '#70bd91',
-      error: '#c52425',
-      warning: '#fac900'
+      light: '',
+      main: '#70bd91',
+      dark: ''
     },
     colors: {
       grey: {
@@ -74,6 +68,21 @@ export const standardTheme: StandardTheme = {
         dark: '#474747',
         black: '#212121'
       } as GreyColor,
+      success: {
+        light: '',
+        main: '#70bd91',
+        dark: '#071126'
+      },
+      error: {
+        light: '',
+        main: '#c52425',
+        dark: ''
+      },
+      warning: {
+        light: '',
+        main: '#fac900',
+        dark: ''
+      },
       red: {
         light: '#9a360e',
         main: '#ff4600',
@@ -81,14 +90,18 @@ export const standardTheme: StandardTheme = {
       },
       green: {
         light: '#94d1b4',
-        main: '#008a52'
+        main: '#008a52',
+        dark: ''
       },
       blue: {
+        light: '',
         main: '#243853',
         dark: '#071126'
       },
       pink: {
-        main: '#DE3163'
+        light: '',
+        main: '#DE3163',
+        dark: ''
       }
     }
   },
