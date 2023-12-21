@@ -35,6 +35,12 @@ const StyledButton = Styled.button<{ color: keyof Colors, colorVariant: keyof Gr
       case 'dark':
         hoverColor = themeColor.main
         break
+      case 'white':
+        hoverColor = themeColor.light
+        break
+      case 'black':
+        hoverColor = themeColor.dark
+        break
       default:
         hoverColor = backgroundColor
         break
