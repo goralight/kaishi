@@ -76,9 +76,9 @@ export const standardTheme: StandardTheme = {
         dark: '#456945'
       },
       success: {
-        light: '#b5e550',
-        main: '#abc32f',
-        dark: '#607c3c'
+        light: '#a4ca9a',
+        main: '#68A857',
+        dark: '#3e6434'
       },
       error: {
         light: '#ff3d41',
@@ -96,9 +96,9 @@ export const standardTheme: StandardTheme = {
         dark: '#930a06'
       },
       green: {
-        light: '#a4ca9a',
-        main: '#68A857',
-        dark: '#3e6434'
+        light: '#b5e550',
+        main: '#abc32f',
+        dark: '#607c3c'
       },
       blue: {
         light: '#98bccc',

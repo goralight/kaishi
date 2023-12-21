@@ -15,7 +15,7 @@ interface ButtonProps {
 interface StyledButtonProps {
   color: keyof Colors
   colorVariant: keyof GreyColor
-  size: keyof ExtraSizing 
+  size: keyof ExtraSizing
 }
 
 const StyledButton = Styled.button<StyledButtonProps>(
