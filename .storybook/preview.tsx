@@ -52,7 +52,6 @@ const GlobalStyles = () => {
   )
 }
 
-
 export const decorators = [
   (Story) => (
     <>

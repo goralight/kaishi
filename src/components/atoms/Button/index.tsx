@@ -12,7 +12,13 @@ interface ButtonProps {
   children: React.ReactNode
 }
 
-const StyledButton = Styled.button<{ color: keyof Colors, colorVariant: keyof GreyColor, size: keyof ExtraSizing }>(
+interface StyledButtonProps {
+  color: keyof Colors
+  colorVariant: keyof GreyColor
+  size: keyof ExtraSizing 
+}
+
+const StyledButton = Styled.button<StyledButtonProps>(
   ({ theme, color, colorVariant, size, disabled }): string => {
     const themeColor = (theme.palette.colors[color] as GreyColor)
     const backgroundColor = themeColor[colorVariant]
@@ -24,7 +30,6 @@ const StyledButton = Styled.button<{ color: keyof Colors, colorVariant: keyof Gr
     }
 
     let hoverColor
-
     switch (colorVariant) {
       case 'main':
         hoverColor = themeColor.dark
