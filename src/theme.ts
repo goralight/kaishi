@@ -1,50 +1,46 @@
-interface Color {
-  light?: string
+export interface Color {
+  light: string
   main: string
-  dark?: string
+  dark: string
 }
 
-interface GreyColor extends Color {
+export interface GreyColor extends Color {
   white: string
   black: string
 }
 
-interface OrdinalColor {
-  pastel?: string
-  main: string
-  muted?: string
-}
-
-interface Sizing {
+export interface Sizing {
   sm: number
   md: number
   lg: number
 }
 
-interface ExtraSizing extends Sizing {
+export interface ExtraSizing extends Sizing {
   xxs: number
   xs: number
   xl: number
   xxl: number
 }
 
+export interface Colors {
+  grey: GreyColor
+  primary: Color
+  secondary: Color
+  tertiary: Color
+  success: Color
+  error: Color
+  warning: Color
+  red: Color
+  green: Color
+  blue: Color
+  pink: Color
+  // add more if needed
+}
+
 export interface StandardTheme {
   palette: {
-    primary: OrdinalColor,
-    secondary: OrdinalColor,
-    tertiary?: OrdinalColor,
-    state?: {
-      success: string,
-      error: string,
-      warning: string,
-    },
-    colors: {
-      grey: GreyColor
-      red: Color
-      green: Color
-      blue: Color
-      pink: Color
-    },
+    mode: 'light' | 'dark'
+    colors: Colors
   },
   border: {
     width: Sizing
@@ -55,40 +51,64 @@ export interface StandardTheme {
 
 export const standardTheme: StandardTheme = {
   palette: {
-    primary: {
-      main: '#008a52'
-    },
-    secondary: {
-      main: '#70bd91'
-    },
-    state: {
-      success: '#70bd91',
-      error: '#c52425',
-      warning: '#fac900'
-    },
+    mode: 'dark',
     colors: {
       grey: {
         white: '#f5f5f5',
-        light: '#aeaeae',
-        main: '#888888',
-        dark: '#474747',
-        black: '#212121'
+        light: '#888888',
+        main: '#555555',
+        dark: '#333333',
+        black: '#111111'
       } as GreyColor,
+      primary: {
+        light: '#ababcf',
+        main: '#7474b0',
+        dark: '#454569'
+      },
+      secondary: {
+        light: '#cfabab',
+        main: '#B07474',
+        dark: '#694545'
+      },
+      tertiary: {
+        light: '#abcfab',
+        main: '#74B074',
+        dark: '#456945'
+      },
+      success: {
+        light: '#b5e550',
+        main: '#abc32f',
+        dark: '#607c3c'
+      },
+      error: {
+        light: '#ff3d41',
+        main: '#ff0000',
+        dark: '#c80004'
+      },
+      warning: {
+        light: '#ffe505',
+        main: '#ffc905',
+        dark: '#ffa505'
+      },
       red: {
-        light: '#9a360e',
-        main: '#ff4600',
-        dark: '#c52425'
+        light: '#f85953',
+        main: '#f5120a',
+        dark: '#930a06'
       },
       green: {
-        light: '#94d1b4',
-        main: '#008a52'
+        light: '#a4ca9a',
+        main: '#68A857',
+        dark: '#3e6434'
       },
       blue: {
-        main: '#243853',
-        dark: '#071126'
+        light: '#98bccc',
+        main: '#5490AB',
+        dark: '#325666'
       },
       pink: {
-        main: '#DE3163'
+        light: '#df858d',
+        main: '#CB3441',
+        dark: '#791f27'
       }
     }
   },
