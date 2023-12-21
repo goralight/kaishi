@@ -60,9 +60,9 @@ Object.keys(standardTheme.palette.colors).forEach((color) => {
 
 buttons.unshift(
   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-    <div style={{ height: '47px', marginTop: '6px' }} />
+    <div style={{ height: '47px' }} />
     {variants.map((colorVariant) => (
-      <div style={{ height: '47px' }} key={colorVariant}>
+      <div style={{ height: '47px', display: 'flex', alignItems: 'center' }} key={colorVariant}>
         <h3 style={{ textAlign: 'center', margin: '0' }}>{colorVariant}</h3>
       </div>
     ))}

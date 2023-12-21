@@ -41,7 +41,10 @@ const GlobalStyles = () => {
   return (
     <Global styles={
       css`
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
         * {
+          font-family: 'Inter', sans-serif;
           color: ${theme.palette.mode === 'dark' ? theme.palette.colors.grey.white : theme.palette.colors.grey.black};
         }
       `

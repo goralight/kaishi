@@ -5,14 +5,14 @@ import { Colors, GreyColor, ExtraSizing } from 'src/theme'
 
 interface ButtonProps {
   color: keyof Colors
-  colorVariant: keyof GreyColor // todo - make optional
-  size: keyof ExtraSizing // todo - make optional
+  colorVariant?: keyof GreyColor
+  size?: keyof ExtraSizing
   disabled?: boolean
   onClick: () => void
   children: React.ReactNode
 }
 
-const StyledButton = Styled.button<{ color: ButtonProps['color'], colorVariant: ButtonProps['colorVariant'], size: ButtonProps['size'], disabled: boolean }>(
+const StyledButton = Styled.button<{ color: keyof Colors, colorVariant: keyof GreyColor, size: keyof ExtraSizing }>(
   ({ theme, color, colorVariant, size, disabled }): string => {
     const themeColor = (theme.palette.colors[color] as GreyColor)
     const backgroundColor = themeColor[colorVariant]
@@ -53,7 +53,7 @@ const StyledButton = Styled.button<{ color: ButtonProps['color'], colorVariant: 
 
     return `
       background-color: ${disabled ? theme.palette.colors.grey.dark : backgroundColor};
-      transition: background-color 0.3s ease;
+      transition: background-color 0.2s ease;
       padding: ${theme.spacing[size]}px;
       height: fit-content;
       border-radius: ${theme.border.radius.sm}px;

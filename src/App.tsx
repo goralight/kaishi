@@ -8,6 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
+import Button from './components/atoms/Button'
 
 library.add(fab, fas, far)
 
@@ -16,8 +17,14 @@ const GlobalStyles = (): JSX.Element => {
   return (
     <Global styles={
       css`
-        body {
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
+        * {
+          font-family: 'Inter', sans-serif;  
           color: ${theme.palette.mode === 'dark' ? theme.palette.colors.grey.white : theme.palette.colors.grey.black};
+        }
+
+        body {
           background-color: ${theme.palette.colors.grey.black};
         }
       `
