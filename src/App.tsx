@@ -2,7 +2,6 @@ import React from 'react'
 
 import { ThemeProvider, Global, css, useTheme } from '@emotion/react'
 import { standardTheme } from './theme'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
