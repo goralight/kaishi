@@ -4,6 +4,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 import { Colors, ExtraSizing } from 'src/theme'
 import styled from '@emotion/styled'
+import { useTheme } from '@emotion/react'
 
 interface IconProps {
   icon: IconProp
@@ -11,15 +12,14 @@ interface IconProps {
   size?: keyof ExtraSizing,
   onClick?: () => void
 }
+
 interface StyledFontAwesomeIconProps {
   color: keyof Colors | 'white' | 'black'
-  width: keyof ExtraSizing
-  height: keyof ExtraSizing
   isClickable: boolean
 }
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)<StyledFontAwesomeIconProps>(
-  ({ theme, color, width, height, isClickable }): string => {
+  ({ theme, color, isClickable }): string => {
     let iconColor: string
     if (color === 'white' || color === 'black') {
       iconColor = theme.palette.colors.grey[color]
@@ -38,8 +38,6 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)<StyledFontAwesomeIconProps
 
     return `
       color: ${iconColor};
-      width: ${theme.spacing[width]}px;
-      height: ${theme.spacing[height]}px;
       cursor: ${isClickable ? 'pointer' : 'default'};
 
       ${isClickable ? `
@@ -59,8 +57,10 @@ const Icon = ({
   size = 'md',
   onClick
 }: IconProps): JSX.Element => {
+  const theme = useTheme()
+
   return (
-    <StyledFontAwesomeIcon icon={icon} color={color} height={size} width={size} isClickable={!!onClick} onClick={onClick} />
+    <StyledFontAwesomeIcon icon={icon} color={color} fontSize={theme.spacing[size]} isClickable={!!onClick} onClick={onClick} />
   )
 }
 export default Icon
