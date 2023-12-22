@@ -76,9 +76,9 @@ export const standardTheme: StandardTheme = {
         dark: '#456945'
       },
       success: {
-        light: '#b5e550',
-        main: '#abc32f',
-        dark: '#607c3c'
+        light: '#a4ca9a',
+        main: '#68A857',
+        dark: '#3e6434'
       },
       error: {
         light: '#ff3d41',
@@ -96,9 +96,9 @@ export const standardTheme: StandardTheme = {
         dark: '#930a06'
       },
       green: {
-        light: '#a4ca9a',
-        main: '#68A857',
-        dark: '#3e6434'
+        light: '#b5e550',
+        main: '#abc32f',
+        dark: '#607c3c'
       },
       blue: {
         light: '#98bccc',
@@ -125,12 +125,12 @@ export const standardTheme: StandardTheme = {
     }
   },
   spacing: {
-    xxs: 4,
-    xs: 8,
-    sm: 12,
-    md: 16,
-    lg: 20,
-    xl: 24,
-    xxl: 28
+    xxs: 8,
+    xs: 12,
+    sm: 16,
+    md: 20,
+    lg: 24,
+    xl: 28,
+    xxl: 32
   }
 }
