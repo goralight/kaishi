@@ -2,9 +2,9 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
-import { Colors, ExtraSizing } from 'src/theme'
 import styled from '@emotion/styled'
 import { useTheme } from '@emotion/react'
+import { Colors, ExtraSizing } from '../../../theme'
 
 interface IconProps {
   icon: IconProp

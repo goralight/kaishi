@@ -1,12 +1,16 @@
 import React from 'react'
 
 import { ThemeProvider, Global, css, useTheme } from '@emotion/react'
-import { standardTheme } from './theme'
+import { standardTheme } from '../theme'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
+import AddPerson from './AddPerson'
+import { Provider } from 'react-redux'
+import { store } from '../store/store'
+import ListPerson from './ListPerson'
 
 library.add(fab, fas, far)
 
@@ -32,13 +36,16 @@ const GlobalStyles = (): JSX.Element => {
 
 const App = (): JSX.Element => {
   return (
-    <ThemeProvider theme={standardTheme}>
-      <GlobalStyles />
-      <div className="App">
-        <header className="App-header"></header>
-        {/* button for settings */}
-      </div>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={standardTheme}>
+        <GlobalStyles />
+        <div className="App">
+          <header className="App-header"></header>
+          <AddPerson />
+          <ListPerson />
+        </div>
+      </ThemeProvider>
+    </Provider>
   )
 }
 

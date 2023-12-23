@@ -1,7 +1,7 @@
 import React from 'react'
 import Styled from '@emotion/styled'
+import { Colors, GreyColor, ExtraSizing } from '../../../theme'
 
-import { Colors, GreyColor, ExtraSizing } from 'src/theme'
 
 interface ButtonProps {
   color: keyof Colors
