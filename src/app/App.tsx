@@ -7,10 +7,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
-import AddPerson from './AddPerson'
 import { Provider } from 'react-redux'
 import { store } from '../store/store'
-import ListPerson from './ListPerson'
+import Counter from './Counter'
 
 library.add(fab, fas, far)
 
@@ -41,8 +40,7 @@ const App = (): JSX.Element => {
         <GlobalStyles />
         <div className="App">
           <header className="App-header"></header>
-          <AddPerson />
-          <ListPerson />
+          <Counter />
         </div>
       </ThemeProvider>
     </Provider>

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import PersonSlice from './features/personSlice'
+import counterSlice from './features/counterSlice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { loadFromStorage, saveToStorage } from './persist/localStorage'
 
@@ -7,8 +7,9 @@ const initialState = loadFromStorage()
 
 export const store = configureStore({
   reducer: {
-    person: PersonSlice.reducer
-  }, // Add 'as any' to bypass the type checking
+    counter: counterSlice
+    // add as we need
+  },
   preloadedState: initialState
 })
 

@@ -1,4 +1,9 @@
-import PersonSlice from '../features/personSlice'
+import { CounterState } from '../features/counterSlice'
+
+export interface RootState {
+  counter: CounterState
+  // add as we need
+}
 
 export const saveToStorage = (state: any): void => {
   try {
@@ -9,7 +14,7 @@ export const saveToStorage = (state: any): void => {
   }
 }
 
-export const loadFromStorage = (): any  => {
+export const loadFromStorage = (): RootState | undefined  => {
   try {
     const serializedState = localStorage.getItem('reduxState')
     if (serializedState === null) {
