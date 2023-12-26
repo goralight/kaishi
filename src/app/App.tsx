@@ -9,7 +9,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { Provider } from 'react-redux'
 import { store } from '../store/store'
-import Counter from './Counter'
 
 library.add(fab, fas, far)
 
@@ -40,7 +39,6 @@ const App = (): JSX.Element => {
         <GlobalStyles />
         <div className="App">
           <header className="App-header"></header>
-          <Counter />
         </div>
       </ThemeProvider>
     </Provider>

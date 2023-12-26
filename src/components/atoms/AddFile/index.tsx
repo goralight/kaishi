@@ -1,24 +1,27 @@
 import React from 'react'
-import Styled from '@emotion/styled'
-import { Colors, GreyColor, ExtraSizing } from '../../../theme'
+import { Colors, ExtraSizing, GreyColor } from '../../../theme'
+import styled from '@emotion/styled'
 
-interface ButtonProps {
+interface AddFileProps {
+  id: string
+  text: string
+  onFileUpload: (file: FileList | null) => void
+  accept?: string
+  size?: keyof ExtraSizing
   color?: keyof Colors
   colorVariant?: keyof GreyColor
-  size?: keyof ExtraSizing
   disabled?: boolean
-  onClick: () => void
-  children: React.ReactNode
 }
 
-interface StyledButtonProps {
+interface StyledInputProps {
   color: keyof Colors
   colorVariant: keyof GreyColor
-  size: keyof ExtraSizing
+  scale: keyof ExtraSizing
+  disabled: boolean
 }
 
-const StyledButton = Styled.button<StyledButtonProps>(
-  ({ theme, color, colorVariant, size, disabled }): string => {
+const StyledLabel = styled.label<StyledInputProps>(
+  ({ theme, color, colorVariant, scale, disabled }): string => {
     const themeColor = (theme.palette.colors[color] as GreyColor)
     const backgroundColor = themeColor[colorVariant]
 
@@ -62,50 +65,54 @@ const StyledButton = Styled.button<StyledButtonProps>(
     }
 
     return `
-      background-color: ${disabled ? theme.palette.colors.grey.dark : backgroundColor};
-      transition: background-color 0.2s ease;
-      padding: ${theme.spacing[size]}px;
-      height: fit-content;
-      border-radius: ${theme.border.radius.sm}px;
-      border: none;
-      cursor: pointer;
+      display: block;
+      background-color: ${backgroundColor};
       color: ${fontColor};
-
-      &:disabled {
-        cursor: not-allowed;
-        color: ${theme.palette.colors.grey.light};
-
-        &:hover {
-          background-color: ${theme.palette.colors.grey.dark};
-        }
-      }
+      cursor: ${disabled ? 'default' : 'pointer'};
+      border: none;
+      border-radius: ${theme.border.radius.sm}px;
+      padding: ${theme.spacing[scale]}px;
+      transition: background-color 0.2s ease;
 
       &:hover {
-        background-color: ${hoverColor}
+        background-color: ${hoverColor};
       }
     `
   }
 )
 
-const Button = ({
-  color = 'primary',
+const StyledInput = styled.input(
+  (): string => {
+    return `
+      display: none;
+    `
+  }
+)
+
+const AddFile = ({
+  id,
+  text,
+  accept = '*',
   size = 'md',
+  color = 'primary',
   colorVariant = 'main',
   disabled = false,
-  onClick,
-  children
-}: ButtonProps): JSX.Element => {
+  onFileUpload
+}: AddFileProps): JSX.Element => {
   return (
-    <StyledButton
-      color={color}
-      colorVariant={colorVariant}
-      size={size}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {children}
-    </StyledButton>
+    <>
+      <StyledLabel
+        htmlFor={id}
+        color={color}
+        colorVariant={colorVariant}
+        scale={size}
+        disabled={disabled}
+      >
+        {text}
+      </StyledLabel>
+      <StyledInput id={id} type='file' onChange={(e): void => onFileUpload(e.currentTarget.files)} accept={accept} />
+    </>
   )
 }
 
-export default Button
+export default AddFile

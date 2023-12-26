@@ -1,7 +1,7 @@
-import { CounterState } from '../features/counterSlice'
+import { StoredImagesState } from '../features/storedImagesSlice'
 
 export interface RootState {
-  counter: CounterState
+  storedImages: StoredImagesState
   // add as we need
 }
 
