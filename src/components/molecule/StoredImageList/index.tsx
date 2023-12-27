@@ -42,7 +42,7 @@ const StoredImageList = (): JSX.Element => {
       </AddImageContainer>
       <ImagesContainer>
         {images.map((image) => (
-          <ImageItem key={image.id} image={image.data} name={image.name} onDelete={(): void => { handleImageRemove(image.id) }} />
+          <ImageItem key={image.id} image={image.data} fileName={image.name} onDelete={(): void => { handleImageRemove(image.id) }} />
         )).reverse()}
       </ImagesContainer>
     </Container>

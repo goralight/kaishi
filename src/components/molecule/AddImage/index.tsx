@@ -59,7 +59,7 @@ const AddImage = (): JSX.Element => {
 
   return (
     <Container>
-      <AddFile text='Add Image' onFileUpload={(e): void => handleFileUpload(e)} size='xs' id='backgroundImage' accept="image/*" />
+      <AddFile onFileUpload={(e): void => handleFileUpload(e)} size='xs' id='backgroundImage' accept="image/*">Add Image</AddFile>
       {error ? <StatusMessage type='error' style={{ marginLeft: '12px' }} onClick={(): void => { setError('') }}>{error}</StatusMessage> : null}
     </Container>
   )

@@ -11,8 +11,14 @@ const meta = {
     layout: 'centered'
   },
   args: {
-    text: 'Add File',
-    id: 'AddFile'
+    children: 'Add File',
+    id: 'AddFile',
+    size: 'md',
+    color: 'primary',
+    colorVariant: 'main',
+    disabled: false,
+    accept: '*'
+
   },
   tags: ['autodocs']
 } satisfies Meta<typeof AddFile>
@@ -20,9 +26,5 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
-  render: (): JSX.Element => (
-    <AddFile text='Add File' onFileUpload={(): void => console.log('worked!')} size='xs' id='AddFile' />
-  )
-}
+export const Primary: Story = {}
 Primary.storyName = 'AddFile'

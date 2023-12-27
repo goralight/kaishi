@@ -12,6 +12,7 @@ const meta = {
   },
   args: {
     icon: 'otter',
+    prefix: 'fas',
     color: 'primary',
     size: 'sm'
   },

@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Icon from '../Icon'
+import Pill from '../Pill'
 
 interface ImageItemProps {
   image: string
-  name: string
+  fileName: string
   onDelete: () => void
 }
 
@@ -17,6 +18,12 @@ const Container = styled.div(
     border-radius: ${theme.border.radius.sm}px;
     align-items: center;
     padding: ${theme.spacing.xxs}px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: ${theme.palette.colors.grey.main};
+      border-color: ${theme.palette.colors.grey.light};
+    }
   `
 )
 
@@ -31,15 +38,34 @@ const Thmubnail = styled.img(
   }
 )
 
-const NameContainer = styled.div(
+const DetailsContainer = styled.div(
   ({ theme }): string => {
     return `
     display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.xxs}px;
     flex: 1;
     width: 40%;
     justify-content: flex-start;
     margin-left: ${theme.spacing.sm}px;
   `
+  }
+)
+
+const NameContainer = styled.div(
+  ({ theme }): string => {
+    return `
+    
+    `
+  }
+)
+
+const InformationContainer = styled.div(
+  ({ theme }): string => {
+    return `
+      display: flex;
+      gap: ${theme.spacing.xxs}px;
+    `
   }
 )
 
@@ -64,9 +90,12 @@ const IconContainer = styled.div(
   }
 )
 
-const ImageItem = ({ image, name, onDelete }: ImageItemProps): JSX.Element => {
+const ImageItem = ({ image, fileName, onDelete }: ImageItemProps): JSX.Element => {
 
   const [isDeleteMode, setIsDeleteMode] = useState(false)
+  const [imageXY, setImageXY] = useState({ x: 0, y: 0 })
+  const [name, setName] = useState('')
+  const [fileType, setFileType] = useState('')
 
   const handleViewClick = (): void => {
     console.log('Logged!')
@@ -76,26 +105,43 @@ const ImageItem = ({ image, name, onDelete }: ImageItemProps): JSX.Element => {
     setIsDeleteMode(!isDeleteMode)
   }
 
-  console.log('isDeleteMode', isDeleteMode)
+  useEffect(() => {
+    const img = new Image()
+    img.src = image
+
+    img.onload = (): void => {
+      setImageXY({ x: img.naturalWidth, y: img.naturalHeight })
+    }
+
+    setName(fileName.split('.')[0])
+    setFileType(fileName.split('.')[1].toUpperCase())
+
+  }, [image, fileName])
 
   return (
     <Container>
-      <Thmubnail src={image} alt={name} />
-      <NameContainer>
-        <StyledSpan>
-          {name}
-        </StyledSpan>
-      </NameContainer>
+      <Thmubnail src={image} alt={fileName} />
+      <DetailsContainer>
+        <InformationContainer>
+          <Pill color='red' colorVariant='dark'>{fileType}</Pill>
+          <Pill color='blue' colorVariant='dark'>{imageXY.x}x{imageXY.y}</Pill>
+        </InformationContainer>
+        <NameContainer>
+          <StyledSpan title={fileName}>
+            {name}
+          </StyledSpan>
+        </NameContainer>
+      </DetailsContainer>
       <IconContainer>
         {isDeleteMode ? (
           <>
-            <Icon icon='xmark' prefix='fas' color='red' size='md' onClick={handleDeleteClick} />
-            <Icon icon='check' prefix='fas' color='green' size='md' onClick={onDelete} />
+            <Icon icon='xmark' prefix='fas' color='red' onClick={handleDeleteClick} />
+            <Icon icon='check' prefix='fas' color='green' onClick={onDelete} />
           </>
         ) : (
           <>
-            <Icon icon='eye' prefix='fas' color='white' size='md' onClick={handleViewClick} />
-            <Icon icon='trash-can' prefix='fas' color='red' size='md' onClick={handleDeleteClick} />
+            <Icon icon='eye' prefix='fas' color='white' onClick={handleViewClick} />
+            <Icon icon='trash-can' prefix='fas' color='red' onClick={handleDeleteClick} />
           </>
         )}
       </IconContainer>
