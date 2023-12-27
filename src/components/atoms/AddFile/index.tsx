@@ -100,7 +100,7 @@ const AddFile = ({
   onFileUpload
 }: AddFileProps): JSX.Element => {
   return (
-    <>
+    <div>
       <StyledLabel
         htmlFor={id}
         color={color}
@@ -111,7 +111,7 @@ const AddFile = ({
         {text}
       </StyledLabel>
       <StyledInput id={id} type='file' onChange={(e): void => onFileUpload(e.currentTarget.files)} accept={accept} />
-    </>
+    </div>
   )
 }
 

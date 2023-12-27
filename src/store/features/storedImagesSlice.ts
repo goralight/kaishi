@@ -20,8 +20,6 @@ export const backgroundImageSlice = createSlice({
   initialState: initialState,
   reducers: {
     addImage: (state, action: PayloadAction<StoredImageState>) => {
-      console.log('action.payload', action.payload)
-      console.log('state', state)
       state.images = [...state.images, action.payload]
       
     },

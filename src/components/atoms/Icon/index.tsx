@@ -1,13 +1,14 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { IconName } from '@fortawesome/fontawesome-svg-core'
 
 import styled from '@emotion/styled'
 import { useTheme } from '@emotion/react'
 import { Colors, ExtraSizing } from '../../../theme'
 
 interface IconProps {
-  icon: IconProp
+  icon: IconName
+  prefix?: 'fas' | 'far' | 'fab'
   color?: keyof Colors | 'white' | 'black'
   size?: keyof ExtraSizing,
   onClick?: () => void
@@ -53,6 +54,7 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)<StyledFontAwesomeIconProps
 
 const Icon = ({
   icon,
+  prefix = 'far',
   color = 'primary',
   size = 'md',
   onClick
@@ -60,7 +62,7 @@ const Icon = ({
   const theme = useTheme()
 
   return (
-    <StyledFontAwesomeIcon icon={icon} color={color} fontSize={theme.spacing[size]} isClickable={!!onClick} onClick={onClick} />
+    <StyledFontAwesomeIcon icon={[prefix, icon]} color={color} fontSize={theme.spacing[size]} isClickable={!!onClick} onClick={onClick} />
   )
 }
 export default Icon
