@@ -60,6 +60,11 @@ const AddFile = ({
   disabled = false,
   onFileUpload
 }: AddFileProps): JSX.Element => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    onFileUpload(e.currentTarget.files)
+    e.currentTarget.value = ''
+  }
+
   return (
     <div>
       <StyledLabel
@@ -71,7 +76,12 @@ const AddFile = ({
       >
         {children}
       </StyledLabel>
-      <StyledInput id={id} type='file' onChange={(e): void => onFileUpload(e.currentTarget.files)} accept={accept} />
+      <StyledInput
+        id={id}
+        type='file'
+        onChange={(e): void => { handleOnChange(e) }}
+        accept={accept}
+      />
     </div>
   )
 }
