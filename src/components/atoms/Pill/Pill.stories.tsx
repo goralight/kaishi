@@ -15,7 +15,7 @@ const meta = {
     color: 'primary',
     colorVariant: 'main',
     size: 'xs',
-    children: 'Pill Text'
+    text: 'Pill Text'
   }
 } satisfies Meta<typeof Pill>
 

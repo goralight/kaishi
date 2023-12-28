@@ -4,13 +4,19 @@ import { Colors, ExtraSizing, GreyColor } from '../../../theme'
 import { getColor } from '../utils'
 
 interface PillProps {
-  color?: keyof Colors | 'white' | 'black'
+  text: string
+  color?: keyof Colors
   colorVariant?: keyof GreyColor
   size?: keyof ExtraSizing
-  children: React.ReactNode
 }
 
-const StyledSpan = styled.span<{ color: keyof Colors | 'white' | 'black', colorVariant: keyof GreyColor, size: keyof ExtraSizing }>(
+interface StyledSpanProps {
+  color: keyof Colors | 'white' | 'black'
+  colorVariant: keyof GreyColor
+  size: keyof ExtraSizing
+}
+
+const StyledSpan = styled.span<StyledSpanProps>(
   ({ theme, color, colorVariant }): string => {
     let backgroundColor, fontColor
     if (color === 'white' || color === 'black') {
@@ -33,10 +39,10 @@ const index = ({
   color = 'primary',
   colorVariant = 'main',
   size = 'xs',
-  children
+  text
 }: PillProps): JSX.Element => {
   return (
-    <StyledSpan color={color} colorVariant={colorVariant} size={size}>{children}</StyledSpan>
+    <StyledSpan color={color} colorVariant={colorVariant} size={size}>{text}</StyledSpan>
   )
 }
 

@@ -19,27 +19,5 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
-  render: (): JSX.Element => {
-    const dispatch = useAppDispatch()
-
-    const { images } = useAppSelector((state) => state.storedImages)
-
-    const handleDelete = (id: string): void => {
-      dispatch(removeImage(id))
-    }
-
-    return (
-      <>
-        <AddImage />
-        {images.map((image) => (
-          <>
-            <img src={image.data} alt={image.name} key={image.id} />
-            <Button onClick={(): void => handleDelete(image.id)} >delete</Button>
-          </>
-        ))}
-      </>
-    )
-  }
-}
+export const Primary: Story = {}
 Primary.storyName = 'AddImage'

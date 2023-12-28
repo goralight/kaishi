@@ -30,7 +30,6 @@ const AddImage = (): JSX.Element => {
   })
 
   const handleFileUpload = (file: FileList | null): void => {
-    console.log('Logged!', file)
     if (!file || file.length === 0) {
       return
     }

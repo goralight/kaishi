@@ -123,8 +123,8 @@ const ImageItem = ({ image, fileName, onDelete }: ImageItemProps): JSX.Element =
       <Thmubnail src={image} alt={fileName} />
       <DetailsContainer>
         <InformationContainer>
-          <Pill color='red' colorVariant='dark'>{fileType}</Pill>
-          <Pill color='blue' colorVariant='dark'>{imageXY.x}x{imageXY.y}</Pill>
+          <Pill color='red' colorVariant='dark' text={fileType} />
+          <Pill color='blue' colorVariant='dark' text={`${imageXY.x}x${imageXY.y}`} />
         </InformationContainer>
         <NameContainer>
           <StyledSpan title={fileName}>

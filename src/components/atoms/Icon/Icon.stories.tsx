@@ -33,7 +33,7 @@ const colors: (keyof Colors | 'white' | 'black')[] = [
 const colorIcons = colors.map((color) => (
   <div key={color} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     <h3>{color}</h3>
-    <Icon icon='otter' color={color} size='xxl' />
+    <Icon icon='otter' prefix='fas' color={color} size='xxl' />
   </div>
 ))
 
@@ -50,7 +50,7 @@ const sizes: (keyof typeof standardTheme.spacing)[] = Object.keys(standardTheme.
 const sizeIcons = sizes.map((size) => (
   <div key={size} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     <h3>{size}</h3>
-    <Icon icon='otter' size={size} />
+    <Icon icon='otter' prefix='fas' size={size} />
   </div>
 ))
 export const allSizes: Story = {
