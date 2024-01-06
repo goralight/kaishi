@@ -39,15 +39,15 @@ const GlobalStyles = (): JSX.Element => {
 const IconContainer = styled.div(
   ({ theme }): string => {
     return `
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    opacity: .2;
-    transition: .3s ease;
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      opacity: .2;
+      transition: .3s ease;
 
-    &:hover {
-      opacity: 1;
-    }
+      &:hover {
+        opacity: 1;
+      }
     `
   }
 )
