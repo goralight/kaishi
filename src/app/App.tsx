@@ -41,7 +41,7 @@ const IconContainer = styled.div(
     return `
     position: absolute;
     top: 16px;
-    left: 16px;
+    right: 16px;
     opacity: .2;
     transition: .3s ease;
 

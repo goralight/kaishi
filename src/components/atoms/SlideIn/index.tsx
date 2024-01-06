@@ -33,8 +33,9 @@ const Container = styled.div<SlideInStyledProps>(
 const IconContainer = styled.div(
   ({ theme }): string => {
     return `
-    display: flex;
-    justify-content: flex-end;
+    position: absolute;
+    top: 16px;
+    right: 16px;
     `
   }
 )
