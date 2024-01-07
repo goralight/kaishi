@@ -1,14 +1,25 @@
-import React from 'react'
-import { useAppSelector } from '../../../store/store'
-import { standardTheme } from '../../../theme'
-import ColorSelector from '../../atoms/ColorSelector'
+import React, { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../../store/store'
+import { Colors, StandardTheme, standardTheme } from '../../../theme'
 import styled from '@emotion/styled'
+import ColorAccordion from '../ColorAccordion'
+import Button from '../../atoms/Button'
+import { updateTheme } from '../../../store/features/ThemeSlice'
 
 interface ThemePaletteSelectionProps {
-  id: string,
+  themeId: string,
 }
 
 const Container = styled.div(
+  ({ theme }): string => {
+    return `
+      display: flex;
+      gap: 8px;
+    `
+  }
+)
+
+const AccordionContainer = styled.div(
   ({ theme }): string => {
     return `
       display: flex;
@@ -18,21 +29,43 @@ const Container = styled.div(
   }
 )
 
-const ThemePaletteSelection: React.FC<ThemePaletteSelectionProps> = (
-  id,
-) => {
-
-  const colors = Object.keys(standardTheme.palette.colors)
-
+const ThemePaletteSelection: React.FC<ThemePaletteSelectionProps> = ({
+  themeId
+}) => {
+  const dispatch = useAppDispatch()
   const { themes } = useAppSelector((state) => state.storedThemes)
+
+  const selectedTheme = themes.find((theme) => theme.id === themeId)
+
+  if (!selectedTheme) {
+    return null
+  }
+
+  const [themeColors, setThemeColors] = useState<Colors>(selectedTheme.theme.palette.colors)
+
+  const colorsNames = Object.keys(standardTheme.palette.colors)
+
+  const handleThemeSave = (): void => {
+    dispatch(updateTheme({
+      ...selectedTheme,
+      theme: {
+        ...selectedTheme.theme,
+        palette: {
+          ...selectedTheme.theme.palette,
+          colors: themeColors
+        }
+      }
+    }))
+  }
 
   return (
     <Container>
-      {colors.map((colorName) => (
-        // switch to a ColorAccordion, which will contain the color selectors for each subcolor type
-        // The name will be the key so you know if you should show just the primary colors or all of the grey ones.
-        <ColorSelector key={colorName} color={'#000000'} setColor={() => { console.log('Logged!') }} name={colorName.toLocaleUpperCase()} />
-      ))}
+      <AccordionContainer>
+        {colorsNames.map((colorName) => (
+          <ColorAccordion key={colorName} colorName={colorName} originalTheme={selectedTheme} themeColors={themeColors} setThemeColors={setThemeColors} />
+        ))}
+      </AccordionContainer>
+      <Button color='green' size='xxs' onClick={handleThemeSave}>Save</Button>
     </Container>
   )
 }

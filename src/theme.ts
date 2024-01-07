@@ -33,7 +33,6 @@ export interface Colors {
   red: Color
   green: Color
   blue: Color
-  pink: Color
   // add more if needed
 }
 
@@ -106,11 +105,6 @@ export const standThemePalette: Palette = {
       main: '#5490AB',
       dark: '#325666'
     },
-    pink: {
-      light: '#df858d',
-      main: '#CB3441',
-      dark: '#791f27'
-    }
   }
 }
 

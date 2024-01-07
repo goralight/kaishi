@@ -39,6 +39,14 @@ export const themeSlice = createSlice({
       }
       state.themes = state.themes.filter((theme) => theme.id !== action.payload)
     },
+    updateTheme: (state, action: PayloadAction<ThemeState>) => {
+      state.themes = state.themes.map((theme) => {
+        if (theme.id === action.payload.id) {
+          return action.payload
+        }
+        return theme
+      })
+    },
     selectTheme: (state, action: PayloadAction<string>) => {
       state.selectedThemeId = action.payload
     }
@@ -46,4 +54,4 @@ export const themeSlice = createSlice({
 })
 
 export default themeSlice.reducer
-export const { addTheme, removeTheme, selectTheme } = themeSlice.actions
+export const { addTheme, removeTheme, updateTheme, selectTheme } = themeSlice.actions

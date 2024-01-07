@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ColorPicker from '../ColorPicker'
 import styled from '@emotion/styled'
+import { Colors, GreyColor } from '../../../theme'
 
 interface ColorSelectorProps {
-  color: string
-  setColor: (color: string) => void
-  name: string
+  variantColors: GreyColor
+  setThemeColors: (themeColors: Colors) => void
+  colorName: string
+  themeColors: Colors
+  variant: string
 }
 
 const Container = styled.div(
@@ -28,14 +31,29 @@ const StyledLabel = styled.label(
 )
 
 const ColorSelector: React.FC<ColorSelectorProps> = ({
-  color,
-  setColor,
-  name
+  variantColors,
+  setThemeColors,
+  themeColors,
+  colorName,
+  variant
 }) => {
+
+  const [color, setColor] = useState(variantColors[variant as keyof GreyColor])
+
+  useEffect(() => {
+    setThemeColors({
+      ...themeColors,
+      [colorName]: {
+        ...(themeColors[colorName as keyof Colors] || {}),
+        [variant]: color
+      }
+    })
+  }, [color])
+
   return (
     <Container>
-      <StyledLabel htmlFor={name}>{name}</StyledLabel>
-      <ColorPicker id={name} color={color} setColor={setColor} />
+      <StyledLabel htmlFor={variant}>{variant}</StyledLabel>
+      <ColorPicker id={variant} color={color} setColor={setColor} />
     </Container>
   )
 }

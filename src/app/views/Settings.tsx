@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store'
 import SlideIn from '../../components/atoms/SlideIn'
 import Button from '../../components/atoms/Button'
 import { addTheme, removeTheme, selectTheme } from '../../store/features/ThemeSlice'
+import ThemePaletteSelection from '../../components/molecule/ThemePaletteSelection'
 
 interface SettingsProps {
   isVisible: boolean
@@ -78,33 +79,28 @@ const Settings: React.FC<SettingsProps> = ({
               main: '#ff0000',
               dark: '#ff0000'
             },
-            pink: {
-              light: '#ff0000',
-              main: '#ff0000',
-              dark: '#ff0000'
-            }
           }
         },
         border: {
           width: {
-            sm: 4,
-            md: 4,
-            lg: 4
+            sm: 22,
+            md: 22,
+            lg: 22
           },
           radius: {
-            sm: 4,
-            md: 4,
-            lg: 4
+            sm: 22,
+            md: 22,
+            lg: 22
           }
         },
         spacing: {
-          xxs: 4,
-          xs: 4,
-          xl: 4,
-          xxl: 4,
-          sm: 4,
-          md: 4,
-          lg: 4
+          xxs: 22,
+          xs: 22,
+          xl: 22,
+          xxl: 22,
+          sm: 22,
+          md: 22,
+          lg: 22
         }
       }
     }))
@@ -129,11 +125,14 @@ const Settings: React.FC<SettingsProps> = ({
           <li key={theme.id}>
             {theme.name}
             <Button onClick={(): void => { handleSelectTheme(theme.id) }}>Select Theme</Button>
+            <Button onClick={(): void => { handleSelectTheme(theme.id) }}>Edit Theme</Button>
             <Button disabled={theme.id === 'default'} onClick={(): void => { hadleRemoveTheme(theme.id) }}>Remove Theme</Button>
           </li>
         ))}
       </ul>
       <Button onClick={handleAddTheme}>Add a theme</Button>
+      <p>editing: test-864b5b76-0978-4f12-9589-0cd007561121</p>
+      <ThemePaletteSelection themeId='864b5b76-0978-4f12-9589-0cd007561121' />
     </SlideIn>
   )
 }

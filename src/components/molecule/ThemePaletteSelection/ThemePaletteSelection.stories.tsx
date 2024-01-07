@@ -10,7 +10,7 @@ const meta = {
     layout: 'centered'
   },
   args: {
-    id: 'default'
+    themeId: 'default'
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof ThemePaletteSelection>
