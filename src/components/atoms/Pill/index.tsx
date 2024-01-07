@@ -35,7 +35,7 @@ const StyledSpan = styled.span<StyledSpanProps>(
   }
 )
 
-const index = ({
+const Pill = ({
   color = 'primary',
   colorVariant = 'main',
   size = 'xs',
@@ -46,4 +46,4 @@ const index = ({
   )
 }
 
-export default index
+export default Pill

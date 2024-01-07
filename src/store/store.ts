@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { loadFromStorage, saveToStorage } from './persist/localStorage'
 import storedImagesSlice from './features/storedImagesSlice'
+import themeSlice from './features/ThemeSlice'
 
 const initialState = loadFromStorage()
 
 export const store = configureStore({
   reducer: {
-    storedImages: storedImagesSlice
+    storedImages: storedImagesSlice,
+    storedThemes: themeSlice
     // add as we need
   },
   preloadedState: initialState
