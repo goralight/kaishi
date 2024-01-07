@@ -21,7 +21,6 @@ export const backgroundImageSlice = createSlice({
   reducers: {
     addImage: (state, action: PayloadAction<StoredImageState>) => {
       state.images = [...state.images, action.payload]
-      
     },
     removeImage: (state, action: PayloadAction<string>) => {
       state.images = state.images.filter((image) => image.id !== action.payload)

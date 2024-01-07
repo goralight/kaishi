@@ -1,11 +1,13 @@
+import { ThemesState } from '../features/ThemeSlice'
 import { StoredImagesState } from '../features/storedImagesSlice'
 
 export interface RootState {
   storedImages: StoredImagesState
+  storedThemes: ThemesState
   // add as we need
 }
 
-export const saveToStorage = (state: any): void => {
+export const saveToStorage = (state: RootState): void => {
   try {
     const serializedState = JSON.stringify(state)
     localStorage.setItem('reduxState', serializedState)

@@ -37,11 +37,13 @@ export interface Colors {
   // add more if needed
 }
 
+export interface Palette {
+  mode: 'light' | 'dark'
+  colors: Colors
+}
+
 export interface StandardTheme {
-  palette: {
-    mode: 'light' | 'dark'
-    colors: Colors
-  },
+  palette: Palette,
   border: {
     width: Sizing
     radius: Sizing
@@ -49,69 +51,71 @@ export interface StandardTheme {
   spacing: ExtraSizing
 }
 
-export const standardTheme: StandardTheme = {
-  palette: {
-    mode: 'dark',
-    colors: {
-      grey: {
-        white: '#f5f5f5',
-        light: '#888888',
-        main: '#555555',
-        dark: '#333333',
-        black: '#111111'
-      } as GreyColor,
-      primary: {
-        light: '#ababcf',
-        main: '#7474b0',
-        dark: '#454569'
-      },
-      secondary: {
-        light: '#cfabab',
-        main: '#B07474',
-        dark: '#694545'
-      },
-      tertiary: {
-        light: '#abcfab',
-        main: '#74B074',
-        dark: '#456945'
-      },
-      success: {
-        light: '#a4ca9a',
-        main: '#68A857',
-        dark: '#3e6434'
-      },
-      error: {
-        light: '#ff3d41',
-        main: '#ff0000',
-        dark: '#c80004'
-      },
-      warning: {
-        light: '#ffe505',
-        main: '#ffc905',
-        dark: '#ffa505'
-      },
-      red: {
-        light: '#f85953',
-        main: '#f5120a',
-        dark: '#930a06'
-      },
-      green: {
-        light: '#b5e550',
-        main: '#abc32f',
-        dark: '#607c3c'
-      },
-      blue: {
-        light: '#98bccc',
-        main: '#5490AB',
-        dark: '#325666'
-      },
-      pink: {
-        light: '#df858d',
-        main: '#CB3441',
-        dark: '#791f27'
-      }
+export const standThemePalette: Palette = {
+  mode: 'dark',
+  colors: {
+    grey: {
+      white: '#f5f5f5',
+      light: '#888888',
+      main: '#555555',
+      dark: '#333333',
+      black: '#111111'
+    } as GreyColor,
+    primary: {
+      light: '#ababcf',
+      main: '#7474b0',
+      dark: '#454569'
+    },
+    secondary: {
+      light: '#cfabab',
+      main: '#B07474',
+      dark: '#694545'
+    },
+    tertiary: {
+      light: '#abcfab',
+      main: '#74B074',
+      dark: '#456945'
+    },
+    success: {
+      light: '#a4ca9a',
+      main: '#68A857',
+      dark: '#3e6434'
+    },
+    error: {
+      light: '#ff3d41',
+      main: '#ff0000',
+      dark: '#c80004'
+    },
+    warning: {
+      light: '#ffe505',
+      main: '#ffc905',
+      dark: '#ffa505'
+    },
+    red: {
+      light: '#f85953',
+      main: '#f5120a',
+      dark: '#930a06'
+    },
+    green: {
+      light: '#b5e550',
+      main: '#abc32f',
+      dark: '#607c3c'
+    },
+    blue: {
+      light: '#98bccc',
+      main: '#5490AB',
+      dark: '#325666'
+    },
+    pink: {
+      light: '#df858d',
+      main: '#CB3441',
+      dark: '#791f27'
     }
-  },
+  }
+}
+
+export const standardTheme: StandardTheme = {
+  palette: standThemePalette,
   border: {
     width: {
       sm: 1,

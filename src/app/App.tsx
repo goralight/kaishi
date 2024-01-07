@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
-import { ThemeProvider, Global, css, useTheme } from '@emotion/react'
-import { standardTheme } from '../theme'
+import { Global, css, useTheme } from '@emotion/react'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -9,9 +8,10 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { Provider } from 'react-redux'
 import { store } from '../store/store'
-import SlideIn from '../components/atoms/SlideIn'
 import Icon from '../components/atoms/Icon'
 import styled from '@emotion/styled'
+import Settings from './views/Settings'
+import ThemeContext from './ThemeContext'
 
 library.add(fab, fas, far)
 
@@ -56,24 +56,22 @@ const App = (): JSX.Element => {
   const [isVisible, setIsVisible] = useState(false)
   return (
     <Provider store={store}>
-      <ThemeProvider theme={standardTheme}>
+      <ThemeContext>
         <GlobalStyles />
         <div className="App">
           <header className="App-header"></header>
-          <SlideIn isVisible={isVisible} setIsVisible={setIsVisible}>
-            <h1>Settings</h1>
-          </SlideIn>
           <IconContainer>
             <Icon
               color="secondary"
               icon="gear"
-              onClick={(): void => {setIsVisible(true)}}
+              onClick={(): void => { setIsVisible(true) }}
               prefix="fas"
-              size="xl"
+              size="xxl"
             />
           </IconContainer>
+          <Settings isVisible={isVisible} setIsVisible={setIsVisible} />
         </div>
-      </ThemeProvider>
+      </ThemeContext>
     </Provider>
   )
 }
