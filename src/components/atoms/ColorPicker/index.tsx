@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React, { useState } from 'react'
 
-import { HexColorPicker } from 'react-colorful'
+import { HexColorPicker, HexColorInput } from 'react-colorful'
 import Icon from '../Icon'
 
 interface ColorPickerProps {
@@ -12,7 +12,7 @@ interface ColorPickerProps {
 }
 
 const Container = styled.div(
-  (): string => {
+  ({ theme }): string => {
     return `
       position: relative;
       
@@ -20,6 +20,22 @@ const Container = styled.div(
         width: 200px;
         height: 200px;
         position: absolute;
+        &__last-control {
+          border-radius: 0;
+        }
+      }
+
+      .react-colorful-input {
+        position: absolute;
+        padding: 4px;
+        bottom: -224px;
+        width: 192px;
+        left: 0px;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        outline: 1px solid ${theme.palette.colors.grey.black};
+        background-color: ${theme.palette.colors.grey.white};
+        border: none;
       }
     `
   }
@@ -32,8 +48,8 @@ const ColorPreview = styled.div<{ color: string, isClickable: boolean }>(
       height: ${theme.spacing.xxl}px;
       background-color: ${color};
       border-radius: ${theme.border.radius.sm}px;
-      border: ${theme.border.width.sm}px solid ${theme.palette.colors.grey.white};
-      cursor: ${isClickable ? 'pointer' : 'default'};
+      outline: ${theme.border.width.sm}px solid ${isClickable ? 'none' : theme.palette.colors.grey.light};
+      cursor: ${isClickable ? 'pointer' : 'not-allowed'};
     `
   }
 )
@@ -77,6 +93,9 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const [isVisible, setIsVisible] = useState(false)
 
   const handleIsVisible = (): void => {
+    if (disabled) {
+      return
+    }
     setIsVisible(!isVisible)
   }
 
@@ -88,6 +107,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
           <Icon icon='circle-xmark' color='red' prefix='fas' size='lg' onClick={handleIsVisible} />
         </IconContainer>
         <HexColorPicker id={id} color={color} onChange={setColor} />
+        <HexColorInput className='react-colorful-input' color={color} onChange={setColor} prefixed />
       </ColorPickerContainer>
     </Container>
   )

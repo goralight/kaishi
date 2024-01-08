@@ -46,6 +46,17 @@ const ThemePaletteSelection: React.FC<ThemePaletteSelectionProps> = ({
   const colorsNames = Object.keys(standardTheme.palette.colors)
 
   const handleThemeSave = (): void => {
+    console.log('Logged!',
+      {
+        ...selectedTheme,
+        theme: {
+          ...selectedTheme.theme,
+          palette: {
+            ...selectedTheme.theme.palette,
+            colors: themeColors
+          }
+        }
+      })
     dispatch(updateTheme({
       ...selectedTheme,
       theme: {
