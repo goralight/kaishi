@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import tinycolor from 'tinycolor2'
 import Accordion from '../../atoms/Accordion'
-import ColorSelector, { ColorSelectorRef } from '../../atoms/ColorSelector'
+import ColorSelector from '../../atoms/ColorSelector'
 import { Color, Colors, GreyColor } from '../../../theme'
 import { ThemeState } from '../../../store/features/ThemeSlice'
 
@@ -28,80 +28,63 @@ const ColorAccordion: React.FC<ColorAccordionProps> = ({
   const [colors, setColors] = useState(originalTheme.theme.palette.colors[colorName as keyof Colors] as GreyColor | Color)
 
   const [isAutoColor, setIsAutoColor] = useState(true)
-  const [strength, setStrength] = useState(15)
+  const [contrastScale, setContrastScale] = useState(20)
 
-  const variantColors: GreyColor = originalTheme.theme.palette.colors[colorName as keyof Colors] as GreyColor
-  const currentVariantColors: GreyColor = themeColors[colorName as keyof Colors] as GreyColor
+  const originalVariantColors: GreyColor = originalTheme.theme.palette.colors[colorName as keyof Colors] as GreyColor
 
   const handleAutoColorChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setIsAutoColor(event.target.checked)
   }
 
-  // useEffect(() => {
-  //   const toChange = {
-  //     ...themeColors,
-  //     [colorName]: {
-  //       ...(themeColors[colorName as keyof Colors]),
-  //       ...colors
-  //     }
-  //   }
-  //   console.log('toChange!', toChange)
-  //   setThemeColors(toChange)
-  // }, [colors])
-
   useEffect(() => {
     if (isAutoColor) {
-      const darkerColor = tinycolor(currentVariantColors.main).darken(strength).toString()
-      const lighterColor = tinycolor(currentVariantColors.main).lighten(strength).toString()
+      const darkerColor = tinycolor(colors.main).darken(contrastScale).toString()
+      const lighterColor = tinycolor(colors.main).lighten(contrastScale).toString()
 
       if (colorName === 'grey') {
-        const darkestColor = tinycolor(darkerColor).darken(strength).toString()
-        const lightestColor = tinycolor(lighterColor).lighten(strength).toString()
+        const darkestColor = tinycolor(darkerColor).clone().darken(contrastScale).toString()
+        const lightestColor = tinycolor(lighterColor).clone().lighten(contrastScale).toString()
 
-        setColors({
+        setColors((prev) => ({
+          ...prev,
           white: lightestColor,
           light: lighterColor,
-          main: currentVariantColors.main,
           dark: darkerColor,
           black: darkestColor
-        })
+        }))
       } else {
-        setColors({
+        setColors((prev) => ({
+          ...prev,
           light: lighterColor,
-          main: currentVariantColors.main,
           dark: darkerColor
-        })
+        }))
       }
-    } else {
-      const toChange = {
-        ...themeColors,
-        [colorName]: {
-          ...(themeColors[colorName as keyof Colors]),
-          ...colors
-        }
-      }
-      console.log('toChange!', toChange)
-      setThemeColors(toChange)
     }
-  }, [colors, isAutoColor, strength])
+  }, [colors.main, isAutoColor, contrastScale])
+
+  useEffect(() => {
+    setThemeColors({
+      ...themeColors,
+      [colorName]: {
+        ...(themeColors[colorName as keyof Colors]),
+        ...colors
+      }
+    })
+  }, [colors])
 
   return (
-    <Accordion label={colorName} color={variantColors.main}>
+    <Accordion label={colorName} color={originalVariantColors.main}>
       <label htmlFor={`auto-color-${colorName}`}>auto set color</label>
       <input id={`auto-color-${colorName}`} type="checkbox" checked={isAutoColor} onChange={handleAutoColorChange} />
-      <label htmlFor={`auto-color-${colorName}-strength`}>strength</label>
-      <input id={`auto-color-${colorName}-strength`} type="number" value={strength} onChange={(e): void => { setStrength(parseInt(e.target.value)) }} />
+      <label htmlFor={`auto-color-${colorName}-strength`}>Contrast</label>
+      <input id={`auto-color-${colorName}-strength`} type="number" disabled={!isAutoColor} value={contrastScale} onChange={(e): void => { setContrastScale(parseInt(e.target.value)) }} />
       {variants.map((variant) => (
         <ColorSelector
-          disabled={isAutoColor && variant !== 'main'}
           key={variant}
+          disabled={isAutoColor && variant !== 'main'}
           color={(colors as GreyColor)[variant]}
           setColors={setColors}
-          variantColors={variantColors}
-          setThemeColors={setThemeColors}
-          themeColors={themeColors}
           variant={variant}
-          colorName={colorName}
         />
       ))}
     </Accordion>

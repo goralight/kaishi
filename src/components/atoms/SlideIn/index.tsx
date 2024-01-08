@@ -5,7 +5,7 @@ import Icon from '../Icon'
 interface SlideInProps {
   isVisible: boolean
   children: React.ReactNode
-  setIsVisible: ( close: boolean ) => void
+  setIsVisible: (close: boolean) => void
 }
 
 interface SlideInStyledProps {
@@ -16,8 +16,8 @@ const Container = styled.div<SlideInStyledProps>(
   ({ theme, containerIsVisible }): string => {
     return `
       padding: ${theme.spacing.xl}px;
-      background-color: ${theme.palette.colors.grey.dark}88;
-      backdrop-filter: blur(4px);
+      background-color: ${theme.palette.colors.grey.dark}aa;
+      backdrop-filter: blur(40px);
       width: calc(100% - ${theme.spacing.xl}px * 2 + 1px);
       min-height: calc(100% - ${theme.spacing.xl}px * 2);
       position: absolute;
@@ -50,7 +50,7 @@ const SlideIn = ({
         <Icon
           color="secondary"
           icon="xmark"
-          onClick={(): void => {setIsVisible(false)}}
+          onClick={(): void => { setIsVisible(false) }}
           prefix="fas"
           size="xxl"
         />

@@ -6,6 +6,7 @@ import Button from '../../components/atoms/Button'
 import { addTheme, removeTheme, selectTheme } from '../../store/features/ThemeSlice'
 import ThemePaletteSelection from '../../components/molecule/ThemePaletteSelection'
 import { standardTheme } from '../../theme'
+import Accordion from '../../components/atoms/Accordion'
 
 interface SettingsProps {
   isVisible: boolean
@@ -48,27 +49,30 @@ const Settings: React.FC<SettingsProps> = ({
   return (
     <SlideIn isVisible={isVisible} setIsVisible={setIsVisible}>
       <h1>Settings</h1>
-      <p>Selected theme: {themes.find((theme) => theme.id === selectedThemeId)?.name}</p>
 
-      <h2>Themes</h2>
-      <ul>
-        {themes.map((theme) => (
-          <li key={theme.id}>
-            {theme.name}
-            <Button onClick={(): void => { handleSelectTheme(theme.id) }}>Select Theme</Button>
-            <Button disabled={theme.id === 'default'} onClick={(): void => { handleEditTheme(theme.id) }}>Edit Theme</Button>
-            <Button disabled={theme.id === 'default'} onClick={(): void => { handleRemoveTheme(theme.id) }}>Remove Theme</Button>
-          </li>
-        ))}
-      </ul>
-      <Button onClick={handleAddTheme}>Add a theme</Button>
-      {currentEditingTheme && (
-        <>
-          <p>editing: test-{currentEditingTheme}</p>
-          <ThemePaletteSelection themeId={currentEditingTheme} />
-          <Button onClick={(): void => { setCurrentEditingTheme('') }}>Close</Button>
-        </>
-      )}
+      <Accordion label={'Themes'}>
+        <p>Selected theme: {themes.find((theme) => theme.id === selectedThemeId)?.name}</p>
+        <ul>
+          {themes.map((theme) => (
+            <li key={theme.id}>
+              {/* todo: need a text to input field on click comp */}
+              {theme.name}
+              <Button onClick={(): void => { handleSelectTheme(theme.id) }}>Select Theme</Button>
+              <Button disabled={theme.id === 'default'} onClick={(): void => { handleEditTheme(theme.id) }}>Edit Theme</Button>
+              <Button disabled={theme.id === 'default'} onClick={(): void => { handleRemoveTheme(theme.id) }}>Remove Theme</Button>
+            </li>
+          ))}
+        </ul>
+        <Button onClick={handleAddTheme}>Add a theme</Button>
+        {currentEditingTheme && (
+          <>
+            <p>editing: test-{currentEditingTheme}</p>
+            <ThemePaletteSelection themeId={currentEditingTheme} />
+            <Button onClick={(): void => { setCurrentEditingTheme('') }}>Close</Button>
+          </>
+        )}
+      </Accordion>
+
     </SlideIn>
   )
 }

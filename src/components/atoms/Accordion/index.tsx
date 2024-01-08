@@ -23,7 +23,7 @@ const StyledDetails = styled.details(
       display: flex;
       width: 100%;
       &[open] {
-        summary {
+        & > summary {
           border-bottom-left-radius: 0;
           border-bottom-right-radius: 0;
         }

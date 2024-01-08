@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { HexColorPicker, HexColorInput } from 'react-colorful'
 import Icon from '../Icon'
+import OutsideClickHandler from '../OutsideClickHandler'
 
 interface ColorPickerProps {
   color: string
@@ -99,17 +100,23 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
     setIsVisible(!isVisible)
   }
 
+  const handleOutsideClick = (): void => {
+    setIsVisible(false)
+  }
+
   return (
-    <Container>
-      <ColorPreview color={color} onClick={handleIsVisible} isClickable={!disabled} />
-      <ColorPickerContainer isVisible={isVisible}>
-        <IconContainer>
-          <Icon icon='circle-xmark' color='red' prefix='fas' size='lg' onClick={handleIsVisible} />
-        </IconContainer>
-        <HexColorPicker id={id} color={color} onChange={setColor} />
-        <HexColorInput className='react-colorful-input' color={color} onChange={setColor} prefixed />
-      </ColorPickerContainer>
-    </Container>
+    <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+      <Container>
+        <ColorPreview color={color} onClick={handleIsVisible} isClickable={!disabled} />
+        <ColorPickerContainer isVisible={isVisible}>
+          <IconContainer>
+            <Icon icon='circle-xmark' color='red' prefix='fas' size='lg' onClick={handleIsVisible} />
+          </IconContainer>
+          <HexColorPicker id={id} color={color} onChange={setColor} />
+          <HexColorInput className='react-colorful-input' color={color} onChange={setColor} prefixed />
+        </ColorPickerContainer>
+      </Container>
+    </OutsideClickHandler>
   )
 }
 
