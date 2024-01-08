@@ -12,7 +12,7 @@ interface ColorSelectorProps {
 }
 
 const Container = styled.div(
-  ({ theme }): string => {
+  (): string => {
     return `
       display: flex;
       justify-content: space-between;

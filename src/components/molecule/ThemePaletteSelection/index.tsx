@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../store/store'
-import { Colors, StandardTheme, standardTheme } from '../../../theme'
+import { Colors, standardTheme } from '../../../theme'
 import styled from '@emotion/styled'
 import ColorAccordion from '../ColorAccordion'
 import Button from '../../atoms/Button'
@@ -11,7 +11,7 @@ interface ThemePaletteSelectionProps {
 }
 
 const Container = styled.div(
-  ({ theme }): string => {
+  (): string => {
     return `
       display: flex;
       gap: 8px;
@@ -20,7 +20,7 @@ const Container = styled.div(
 )
 
 const AccordionContainer = styled.div(
-  ({ theme }): string => {
+  (): string => {
     return `
       display: flex;
       flex-direction: column;

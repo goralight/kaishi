@@ -37,7 +37,7 @@ const GlobalStyles = (): JSX.Element => {
 }
 
 const IconContainer = styled.div(
-  ({ theme }): string => {
+  (): string => {
     return `
       position: absolute;
       top: 16px;

@@ -1,6 +1,12 @@
-import { Colors, GreyColor, StandardTheme } from '../../../theme';
+import { Colors, GreyColor, StandardTheme } from '../../../theme'
 
-export const getColor = (theme: StandardTheme, color: keyof Colors, colorVariant: keyof GreyColor) => {
+interface GetColorReturn {
+  backgroundColor: string;
+  hoverColor: string;
+  fontColor: string;
+}
+
+export const getColor = (theme: StandardTheme, color: keyof Colors, colorVariant: keyof GreyColor): GetColorReturn => {
   const themeColor = (theme.palette.colors[color] as GreyColor)
   const backgroundColor = themeColor[colorVariant]
 

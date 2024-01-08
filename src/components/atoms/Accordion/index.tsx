@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useState } from 'react'
+import React from 'react'
 
 interface AccordionProps {
   label: string
@@ -9,7 +9,7 @@ interface AccordionProps {
 }
 
 const Container = styled.div(
-  ({ theme }): string => {
+  (): string => {
     return `
       width: 100%;
       height: initial;
@@ -18,7 +18,7 @@ const Container = styled.div(
 )
 
 const StyledDetails = styled.details(
-  ({ theme }): string => {
+  (): string => {
     return `
       display: flex;
       width: 100%;

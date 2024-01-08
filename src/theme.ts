@@ -104,7 +104,7 @@ export const standThemePalette: Palette = {
       light: '#98bccc',
       main: '#5490AB',
       dark: '#325666'
-    },
+    }
   }
 }
 

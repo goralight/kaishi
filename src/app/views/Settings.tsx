@@ -78,7 +78,7 @@ const Settings: React.FC<SettingsProps> = ({
               light: '#ff0000',
               main: '#ff0000',
               dark: '#ff0000'
-            },
+            }
           }
         },
         border: {

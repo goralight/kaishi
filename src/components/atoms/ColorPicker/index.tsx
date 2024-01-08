@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 
 import { HexColorPicker } from 'react-colorful'
 import Icon from '../Icon'
-import { isVisible } from '@testing-library/user-event/dist/utils'
 
 interface ColorPickerProps {
   color: string
@@ -13,7 +12,7 @@ interface ColorPickerProps {
 }
 
 const Container = styled.div(
-  ({ theme }): string => {
+  (): string => {
     return `
       position: relative;
       
@@ -55,7 +54,7 @@ const ColorPickerContainer = styled.div<{ isVisible: boolean }>(
 )
 
 const IconContainer = styled.div(
-  ({ theme }): string => {
+  (): string => {
     return `
       position: relative;
       width: 200px;
