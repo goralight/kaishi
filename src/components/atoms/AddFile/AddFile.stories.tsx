@@ -1,7 +1,6 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { standardTheme } from '../../../theme'
 import AddFile from '.'
 
 const meta = {

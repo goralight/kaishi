@@ -50,7 +50,7 @@ const GlobalStyles = () => {
         }
         
         body > * {
-          color: ${theme.palette.mode === 'dark' ? theme.palette.colors.grey.white : theme.palette.colors.grey.black};
+          color: ${theme.palette.colors.foreground.main};
           font-family: 'Inter', sans-serif;
         }
       `

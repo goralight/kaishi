@@ -9,33 +9,20 @@ import { Colors, ExtraSizing } from '../../../theme'
 interface IconProps {
   icon: IconName
   prefix?: 'fas' | 'far' | 'fab'
-  color?: keyof Colors | 'white' | 'black'
+  color?: keyof Colors
   size?: keyof ExtraSizing,
   onClick?: () => void
 }
 
 interface StyledFontAwesomeIconProps {
-  color: keyof Colors | 'white' | 'black'
+  color: keyof Colors
   isClickable: boolean
 }
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)<StyledFontAwesomeIconProps>(
   ({ theme, color, isClickable }): string => {
-    let iconColor: string
-    if (color === 'white' || color === 'black') {
-      iconColor = theme.palette.colors.grey[color]
-    } else {
-      iconColor = theme.palette.colors[color].main
-    }
-
-    let hoverColor: string
-    if (color === 'white') {
-      hoverColor = theme.palette.colors.grey.light
-    } else if (color === 'black') {
-      hoverColor = theme.palette.colors.grey.dark
-    } else {
-      hoverColor = theme.palette.colors[color].dark
-    }
+    const iconColor: string = theme.palette.colors[color].main
+    const hoverColor: string = theme.palette.colors[color].dark
 
     return `
       color: ${iconColor};

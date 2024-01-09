@@ -16,7 +16,7 @@ const Container = styled.div<SlideInStyledProps>(
   ({ theme, containerIsVisible }): string => {
     return `
       padding: ${theme.spacing.xl}px;
-      background-color: ${theme.palette.colors.grey.dark}aa;
+      background-color: ${theme.palette.colors.background.dark}aa;
       backdrop-filter: blur(40px);
       width: calc(100% - ${theme.spacing.xl}px * 2 + 1px);
       min-height: calc(100% - ${theme.spacing.xl}px * 2);
