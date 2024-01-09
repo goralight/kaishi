@@ -65,7 +65,7 @@ const ThemePaletteSelection: React.FC<ThemePaletteSelectionProps> = ({
           <ColorAccordion key={colorName} colorName={colorName} originalTheme={selectedTheme} themeColors={themeColors} setThemeColors={setThemeColors} />
         ))}
       </AccordionContainer>
-      <Button color='green' size='xxs' onClick={handleThemeSave}>Save</Button>
+      <Button color='primary' size='xxs' onClick={handleThemeSave}>Save</Button>
     </Container>
   )
 }

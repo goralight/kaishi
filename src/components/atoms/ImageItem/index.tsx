@@ -13,16 +13,16 @@ const Container = styled.div(
   ({ theme }): string => `
     display: flex;
     width: 100%;
-    border: solid ${theme.palette.colors.grey.main} ${theme.border.width.sm}px;
-    background-color: ${theme.palette.colors.grey.dark};
+    border: solid ${theme.palette.colors.background.light} ${theme.border.width.sm}px;
+    background-color: ${theme.palette.colors.background.dark};
     border-radius: ${theme.border.radius.sm}px;
     align-items: center;
     padding: ${theme.spacing.xxs}px;
     transition: all 0.2s ease;
 
     &:hover {
-      background-color: ${theme.palette.colors.grey.main};
-      border-color: ${theme.palette.colors.grey.light};
+      background-color: ${theme.palette.colors.background.light};
+      border-color: ${theme.palette.colors.background.main};
     }
   `
 )
@@ -49,14 +49,6 @@ const DetailsContainer = styled.div(
     justify-content: flex-start;
     margin-left: ${theme.spacing.sm}px;
   `
-  }
-)
-
-const NameContainer = styled.div(
-  ({ theme }): string => {
-    return `
-    
-    `
   }
 )
 
@@ -123,25 +115,25 @@ const ImageItem = ({ image, fileName, onDelete }: ImageItemProps): JSX.Element =
       <Thmubnail src={image} alt={fileName} />
       <DetailsContainer>
         <InformationContainer>
-          <Pill color='red' colorVariant='dark' text={fileType} />
-          <Pill color='blue' colorVariant='dark' text={`${imageXY.x}x${imageXY.y}`} />
+          <Pill color='primary' colorVariant='dark' text={fileType} />
+          <Pill color='secondary' colorVariant='dark' text={`${imageXY.x}x${imageXY.y}`} />
         </InformationContainer>
-        <NameContainer>
+        <div>
           <StyledSpan title={fileName}>
             {name}
           </StyledSpan>
-        </NameContainer>
+        </div>
       </DetailsContainer>
       <IconContainer>
         {isDeleteMode ? (
           <>
-            <Icon icon='xmark' prefix='fas' color='red' onClick={handleDeleteClick} />
-            <Icon icon='check' prefix='fas' color='green' onClick={onDelete} />
+            <Icon icon='xmark' prefix='fas' color='secondary' onClick={handleDeleteClick} />
+            <Icon icon='check' prefix='fas' color='primary' onClick={onDelete} />
           </>
         ) : (
           <>
-            <Icon icon='eye' prefix='fas' color='white' onClick={handleViewClick} />
-            <Icon icon='trash-can' prefix='fas' color='red' onClick={handleDeleteClick} />
+            <Icon icon='eye' prefix='fas' color='foreground' onClick={handleViewClick} />
+            <Icon icon='trash-can' prefix='fas' color='secondary' onClick={handleDeleteClick} />
           </>
         )}
       </IconContainer>

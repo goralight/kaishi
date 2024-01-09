@@ -1,14 +1,3 @@
-export interface Color {
-  light: string
-  main: string
-  dark: string
-}
-
-export interface GreyColor extends Color {
-  white: string
-  black: string
-}
-
 export interface Sizing {
   sm: number
   md: number
@@ -22,17 +11,22 @@ export interface ExtraSizing extends Sizing {
   xxl: number
 }
 
+export interface Color {
+  light: string
+  main: string
+  dark: string
+}
+
 export interface Colors {
-  grey: GreyColor
+  background: Color
+  foreground: Color
   primary: Color
   secondary: Color
   tertiary: Color
   success: Color
-  error: Color
   warning: Color
-  red: Color
-  green: Color
-  blue: Color
+  error: Color
+  disabled: Color
   // add more if needed
 }
 
@@ -53,13 +47,16 @@ export interface StandardTheme {
 export const standThemePalette: Palette = {
   mode: 'dark',
   colors: {
-    grey: {
-      white: '#f5f5f5',
-      light: '#888888',
-      main: '#555555',
-      dark: '#333333',
-      black: '#111111'
-    } as GreyColor,
+    background: {
+      light: '#666666',
+      main: '#444444',
+      dark: '#222222'
+    },
+    foreground: {
+      light: '#ffffff',
+      main: '#eeeeee',
+      dark: '#bbbbbb'
+    },
     primary: {
       light: '#ababcf',
       main: '#7474b0',
@@ -90,20 +87,10 @@ export const standThemePalette: Palette = {
       main: '#ffc905',
       dark: '#ffa505'
     },
-    red: {
-      light: '#f85953',
-      main: '#f5120a',
-      dark: '#930a06'
-    },
-    green: {
-      light: '#b5e550',
-      main: '#abc32f',
-      dark: '#607c3c'
-    },
-    blue: {
-      light: '#98bccc',
-      main: '#5490AB',
-      dark: '#325666'
+    disabled: {
+      light: '#666666',
+      main: '#444444',
+      dark: '#222222'
     }
   }
 }

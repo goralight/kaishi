@@ -36,7 +36,7 @@ const StyledSummary = styled.summary<{ color: string | undefined }>(
   ({ theme, color }): string => {
     return `
       padding: ${theme.spacing.xs}px;
-      background-color: ${color ? color : theme.palette.colors.grey.main};
+      background-color: ${color ? color : theme.palette.colors.background.main};
       border-radius: ${theme.border.radius.sm}px;
       cursor: pointer;
       list-style: none;
@@ -45,10 +45,10 @@ const StyledSummary = styled.summary<{ color: string | undefined }>(
 )
 
 const Content = styled.div(
-  ({ theme }): string => {
+  ({ theme, color }): string => {
     return `
       padding: ${theme.spacing.xs}px;
-      background-color: ${theme.palette.colors.grey.dark};
+      background-color: ${color ? color : theme.palette.colors.background.dark};
       border-bottom-left-radius: ${theme.border.radius.sm}px;
       border-bottom-right-radius: ${theme.border.radius.sm}px;
     `
@@ -65,7 +65,7 @@ const Accordion: React.FC<AccordionProps> = ({
     <Container>
       <StyledDetails open={isOpenOnMount}>
         <StyledSummary color={color}>{label}</StyledSummary>
-        <Content>
+        <Content color={color}>
           {children}
         </Content>
       </StyledDetails>

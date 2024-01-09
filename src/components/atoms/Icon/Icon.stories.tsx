@@ -24,9 +24,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {}
 Primary.storyName = 'Icon'
-const colors: (keyof Colors | 'white' | 'black')[] = [
-  'white',
-  'black',
+const colors: (keyof Colors)[] = [
   ...Object.keys(standardTheme.palette.colors) as (keyof typeof standardTheme.palette.colors)[]
 ]
 
