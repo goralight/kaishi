@@ -1,5 +1,5 @@
 import React from 'react'
-import { Colors, ExtraSizing, GreyColor } from '../../../theme'
+import { Color, Colors, ExtraSizing } from '../../../theme'
 import { getColor } from '../utils'
 import styled from '@emotion/styled'
 
@@ -9,14 +9,14 @@ interface AddFileProps {
   accept?: string
   size?: keyof ExtraSizing
   color?: keyof Colors
-  colorVariant?: keyof GreyColor
+  colorVariant?: keyof Color
   disabled?: boolean
   children: React.ReactNode
 }
 
 interface StyledInputProps {
   color: keyof Colors
-  colorVariant: keyof GreyColor
+  colorVariant: keyof Color
   scale: keyof ExtraSizing
   disabled: boolean
 }

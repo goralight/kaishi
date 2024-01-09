@@ -55,7 +55,7 @@ const Settings: React.FC<SettingsProps> = ({
         <ul>
           {themes.map((theme) => (
             <li key={theme.id}>
-              {/* todo: need a text to input field on click comp */}
+              {/* todo: need a text to input field on click comp for the name of the theme */}
               {theme.name}
               <Button onClick={(): void => { handleSelectTheme(theme.id) }}>Select Theme</Button>
               <Button disabled={theme.id === 'default'} onClick={(): void => { handleEditTheme(theme.id) }}>Edit Theme</Button>

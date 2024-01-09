@@ -12,7 +12,7 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    color: 'grey',
+    color: 'primary',
     colorVariant: 'main',
     size: 'md',
     disabled: false,
@@ -28,7 +28,7 @@ Primary.storyName = 'Button'
 
 const buttons: JSX.Element[] = []
 
-const variants = Object.keys(standardTheme.palette.colors.grey)
+const variants = Object.keys(standardTheme.palette.colors.primary)
 const first = variants.shift()
 if (first) {
   variants.push(first)
@@ -41,11 +41,7 @@ Object.keys(standardTheme.palette.colors).forEach((color) => {
       <div style={{ display: 'flex', flexDirection: 'column', width: '150px', gap: '12px' }} key={color}>
         {variants.map((colorVariant) => {
           const c = color as keyof typeof standardTheme.palette.colors
-          const cv = colorVariant as keyof typeof standardTheme.palette.colors.grey
-
-          if (c !== 'grey' && (cv === 'white' || cv === 'black')) {
-            return null
-          }
+          const cv = colorVariant as keyof typeof standardTheme.palette.colors.primary
 
           return (
             <Button color={c} colorVariant={cv} size='md' key={colorVariant} onClick={(): void => { null }}>
@@ -84,7 +80,7 @@ const sizes: JSX.Element[] = []
 Object.keys(standardTheme.spacing).forEach((size) => {
   const s = size as keyof typeof standardTheme.spacing
   sizes.push(
-    <Button size={s} key={size} onClick={(): void => { null }} color='grey' colorVariant='dark'>
+    <Button size={s} key={size} onClick={(): void => { null }} color='primary' colorVariant='dark'>
       {size}
     </Button>
   )

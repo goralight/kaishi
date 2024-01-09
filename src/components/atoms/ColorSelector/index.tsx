@@ -1,7 +1,7 @@
 import React from 'react'
 import ColorPicker from '../ColorPicker'
 import styled from '@emotion/styled'
-import { Color, GreyColor } from '../../../theme'
+import { Color } from '../../../theme'
 
 export interface ColorSelectorRef {
   setColor: (color: string) => void
@@ -9,7 +9,7 @@ export interface ColorSelectorRef {
 
 interface ColorSelectorProps {
   color: string
-  setColors: React.Dispatch<React.SetStateAction<GreyColor | Color>>
+  setColors: React.Dispatch<React.SetStateAction<Color>>
   variant: string
   disabled?: boolean
 }
@@ -39,6 +39,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
   setColors,
   disabled = false
 }) => {
+  const label = variant.charAt(0).toUpperCase() + variant.slice(1)
 
   const handleSetColor = (color: string): void => {
     setColors((prev) => {
@@ -51,7 +52,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
 
   return (
     <Container>
-      <StyledLabel htmlFor={variant}>{variant}</StyledLabel>
+      <StyledLabel htmlFor={variant}>{label}</StyledLabel>
       <ColorPicker id={variant} color={color} setColor={handleSetColor} disabled={disabled} />
     </Container>
   )

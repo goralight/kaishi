@@ -1,4 +1,4 @@
-import { Colors, GreyColor, StandardTheme } from '../../../theme'
+import { Color, Colors, StandardTheme } from '../../../theme'
 
 interface GetColorReturn {
   backgroundColor: string;
@@ -6,8 +6,8 @@ interface GetColorReturn {
   fontColor: string;
 }
 
-export const getColor = (theme: StandardTheme, color: keyof Colors, colorVariant: keyof GreyColor): GetColorReturn => {
-  const themeColor = (theme.palette.colors[color] as GreyColor)
+export const getColor = (theme: StandardTheme, color: keyof Colors, colorVariant: keyof Color): GetColorReturn => {
+  const themeColor = (theme.palette.colors[color] as Color)
   const backgroundColor = themeColor[colorVariant]
 
   if (!backgroundColor) {
@@ -27,27 +27,12 @@ export const getColor = (theme: StandardTheme, color: keyof Colors, colorVariant
     case 'dark':
       hoverColor = themeColor.main
       break
-    case 'white':
-      hoverColor = themeColor.light
-      break
-    case 'black':
-      hoverColor = themeColor.dark
-      break
     default:
       hoverColor = backgroundColor
       break
   }
 
-  let fontColor: string
-  if (color === 'grey' && colorVariant === 'white') {
-    fontColor = 'black'
-  } else if (color === 'grey' && colorVariant === 'black') {
-    fontColor = 'white'
-  } else if (theme.palette.mode === 'dark') {
-    fontColor = 'white'
-  } else {
-    fontColor = 'black'
-  }
+  const fontColor: string = theme.palette.colors.foreground.main
 
   return {
     backgroundColor,
