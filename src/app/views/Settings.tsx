@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 import SlideIn from '../../components/atoms/SlideIn'
@@ -7,6 +7,8 @@ import { addTheme, removeTheme, selectTheme } from '../../store/features/ThemeSl
 import ThemePaletteSelection from '../../components/molecule/ThemePaletteSelection'
 import { standardTheme } from '../../theme'
 import Accordion from '../../components/atoms/Accordion'
+import AddImage from '../../components/molecule/AddImage'
+import { Rnd } from 'react-rnd'
 
 interface SettingsProps {
   isVisible: boolean
@@ -46,6 +48,29 @@ const Settings: React.FC<SettingsProps> = ({
     setCurrentEditingTheme(id)
   }
 
+  // RND testing
+  const [inUseElements, setInUseElements] = useState([])
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+  const [width, setWidth] = useState(0)
+  const [height, setHeight] = useState(0)
+  const [initWidth, setInitWidth] = useState(0)
+  const [initHeight, setInitHeight] = useState(0)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [scale, setScale] = useState({ x: 1, y: 1 })
+
+  const { images } = useAppSelector((state) => state.storedImages)
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      setWidth(buttonRef.current.offsetWidth)
+      setHeight(buttonRef.current.offsetHeight)
+      setInitWidth(buttonRef.current.offsetWidth)
+      setInitHeight(buttonRef.current.offsetHeight)
+    }
+  }, [])
+
+
+
   return (
     <SlideIn isVisible={isVisible} setIsVisible={setIsVisible}>
       <h1>Settings</h1>
@@ -72,6 +97,43 @@ const Settings: React.FC<SettingsProps> = ({
           </>
         )}
       </Accordion>
+      <Accordion label='images'>
+        <AddImage />
+      </Accordion>
+
+      {/* RND testing */}
+      {images.length > 0 && (
+        <Rnd
+          size={{ width: initWidth * scale.x, height: initHeight * scale.y }}
+          position={{ x: position.x, y: position.y }}
+          onDragStop={(e, d): void => {
+            setPosition({ x: d.x, y: d.y })
+          }}
+          onResize={(e, direction, ref, delta, position): void => {
+            setWidth(parseInt(ref.style.width))
+            setHeight(parseInt(ref.style.height))
+            setPosition({ x: position.x, y: position.y })
+            setScale({ x: ref.offsetWidth / initWidth, y: ref.offsetHeight / initHeight })
+          }}
+          lockAspectRatio={false}
+          style={{
+            border: 'dashed 1px red',
+            transform: `scale(${scale.x}, ${scale.y})`
+          }}
+        >
+          <div style={{
+            // width: width,
+            // height: height
+            transform: `scale(${scale.x}, ${scale.y})`
+          }}>
+            <button
+              // style={{ transform: `scale(${scale.x}, ${scale.y})` }}
+              ref={buttonRef} onClick={() => { console.log('Logged!') }}>awd</button>
+          </div>
+          {/* <div style={{ backgroundImage: `url("${images[0].data}")`, transform: `scale(${width / 300}, ${height / 300})`, backgroundRepeat: 'no-repeat', height: height, width: width }} /> */}
+          {/* <div style={{ backgroundImage: `url("${images[0].data}")`, backgroundSize: `${width}px ${height}px`, backgroundRepeat: 'no-repeat', height: height, width: width }} /> */}
+        </Rnd>
+      )}
 
     </SlideIn>
   )
