@@ -11,6 +11,7 @@ interface IconProps {
   prefix?: 'fas' | 'far' | 'fab'
   color?: keyof Colors
   size?: keyof ExtraSizing,
+  title?: string
   onClick?: () => void
 }
 
@@ -44,12 +45,13 @@ const Icon = ({
   prefix = 'far',
   color = 'primary',
   size = 'md',
+  title,
   onClick
 }: IconProps): JSX.Element => {
   const theme = useTheme()
 
   return (
-    <StyledFontAwesomeIcon icon={[prefix, icon]} color={color} fontSize={theme.spacing[size]} isClickable={!!onClick} onClick={onClick} />
+    <StyledFontAwesomeIcon icon={[prefix, icon]} color={color} fontSize={theme.spacing[size]} isClickable={!!onClick} onClick={onClick} title={title} />
   )
 }
 export default Icon
