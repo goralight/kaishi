@@ -64,6 +64,41 @@ export const Primary: Story = {
 }
 Primary.storyName = 'Widget'
 
+export const Embed: Story = {
+  args: {
+    id: 'embed',
+    onDeleteWidget: (id): void => { console.log('deleted', id) },
+    editMode: true,
+    lockAspectRatio: false,
+    children: (
+      <div></div>
+    ),
+    wh: { w: 0, h: 0 },
+    setWh: (): null => null,
+    xy: { x: 0, y: 0 },
+    setXy: (): null => null,
+    originalWh: { w: 0, h: 0 },
+    setOriginalWh: (): null => null,
+    zIndex: 0,
+    setZIndex: (): null => null
+  },
+  render: (args) => {
+    const [wh, setWh] = useState({ w: 700, h: 700 })
+    const [xy, setXy] = useState({ x: 17, y: 17 })
+    const [originalWh, setOriginalWh] = useState({ w: 700, h: 700 })
+    const [zIndex, setZIndex] = useState(2)
+    // if we dont want to scale it, make the w / h of the iframe to a set value, not from the state
+    return (
+      <>
+        <Widget {...args} xy={xy} setXy={setXy} wh={wh} setWh={setWh} originalWh={originalWh} setOriginalWh={setOriginalWh} zIndex={zIndex} setZIndex={setZIndex}>
+          <iframe style={{ height: wh.h, width: wh.w }} src="https://docs.google.com/spreadsheets/d/1fn9RXbWujmt4VhIf3mitnTVf73rOwDr09wdG-qOblE8/edit?usp=sharing&amp;widget=true&amp;rm=minimal&amp;headers=false"></iframe>
+        </Widget>
+        <div style={{ backgroundSize: 'cover', backgroundImage: 'url(https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQehAwmdDN-tZv1jE-1a4uR49jCJzPp5x1gHWWm-13xcBTlaNwZTnFBnMUVsSZGCGgP)', width: '200px', height: '200px' }} />
+      </>
+    )
+  }
+}
+
 export const Other: Story = {
   args: {
     children: (

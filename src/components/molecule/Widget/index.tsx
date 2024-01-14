@@ -18,6 +18,7 @@ interface WidgetProps {
   setOriginalWh: (wh: { w: number, h: number }) => void
   zIndex: number
   setZIndex: (zIndex: number) => void
+  shouldScale?: boolean
   children: React.ReactNode
 }
 
@@ -107,6 +108,7 @@ const Widget: React.FC<WidgetProps> = ({
   setZIndex,
   editMode,
   lockAspectRatio,
+  shouldScale = true,
   children
 }) => {
   const contentContainerRef = React.useRef<HTMLDivElement>(null)
@@ -119,9 +121,7 @@ const Widget: React.FC<WidgetProps> = ({
   const [scale, setScale] = useState({ x: 1, y: 1 })
 
   const scaleToFit = (): void => {
-    if (contentContainerRef.current) {
-      console.log('wh', wh)
-      console.log('contentContainerRef.current.offsetWidth', contentContainerRef.current.offsetWidth)
+    if (contentContainerRef.current && shouldScale) {
       const x = wh.w / contentContainerRef.current.offsetWidth
       const y = wh.h / contentContainerRef.current.offsetHeight
       setScale({ x, y })
