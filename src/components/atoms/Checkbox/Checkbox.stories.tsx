@@ -17,7 +17,6 @@ const meta = {
     align: 'left',
     color: 'foreground',
     disabled: false
-
   },
   tags: ['autodocs']
 

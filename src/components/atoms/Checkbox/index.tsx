@@ -63,7 +63,6 @@ const Checkbox = ({
 
   return (
     <Container align={align}>
-      {/* <input type="checkbox" id={id} checked={checked} onChange={handleOnChange}/> */}
       <Icon id={id} disabled={disabled} icon={checked ? 'check-square' : 'square'} prefix='fas' color={iconColor} onClick={handleOnChange}/>
       <StyledLabel htmlFor={id} disabled={disabled} onClick={handleOnChange}>{label}</StyledLabel>
     </Container>
