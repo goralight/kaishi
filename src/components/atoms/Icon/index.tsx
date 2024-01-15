@@ -13,27 +13,30 @@ interface IconProps {
   size?: keyof ExtraSizing,
   title?: string
   onClick?: () => void
+  id?: string
+  disabled?: boolean
 }
 
 interface StyledFontAwesomeIconProps {
   color: keyof Colors
   isClickable: boolean
+  disabled: boolean
 }
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)<StyledFontAwesomeIconProps>(
-  ({ theme, color, isClickable }): string => {
+  ({ theme, color, isClickable, disabled }): string => {
     const iconColor: string = theme.palette.colors[color].main
     const hoverColor: string = theme.palette.colors[color].dark
 
     return `
       color: ${iconColor};
-      cursor: ${isClickable ? 'pointer' : 'default'};
+      cursor: ${(disabled || !isClickable) ? 'default' : 'pointer'};
 
       ${isClickable ? `
         transition: color 0.2s ease;
 
         &:hover {
-          color: ${hoverColor};
+          ${!disabled ? `color: ${hoverColor};` : ''}; 
         }
       ` : null}
     `
@@ -46,12 +49,14 @@ const Icon = ({
   color = 'primary',
   size = 'md',
   title,
+  id,
+  disabled = false,
   onClick
 }: IconProps): JSX.Element => {
   const theme = useTheme()
 
   return (
-    <StyledFontAwesomeIcon icon={[prefix, icon]} color={color} fontSize={theme.spacing[size]} isClickable={!!onClick} onClick={onClick} title={title} />
+    <StyledFontAwesomeIcon icon={[prefix, icon]} color={color} disabled={disabled} id={id} fontSize={theme.spacing[size]} isClickable={!!onClick} title={title} onClick={onClick} />
   )
 }
 export default Icon
