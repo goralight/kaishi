@@ -4,6 +4,7 @@ import Accordion from '../../atoms/Accordion'
 import ColorSelector from '../../atoms/ColorSelector'
 import { Color, Colors } from '../../../theme'
 import { ThemeState } from '../../../store/features/ThemeSlice'
+import Checkbox from '../../atoms/Checkbox'
 
 interface ColorAccordionProps {
   colorName: string
@@ -28,8 +29,8 @@ const ColorAccordion: React.FC<ColorAccordionProps> = ({
 
   const originalVariantColors: Color = originalTheme.theme.palette.colors[colorName as keyof Colors] as Color
 
-  const handleAutoColorChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setIsAutoColor(event.target.checked)
+  const handleAutoColorChange = (): void => {
+    setIsAutoColor(!isAutoColor)
   }
 
   useEffect(() => {
@@ -56,8 +57,7 @@ const ColorAccordion: React.FC<ColorAccordionProps> = ({
 
   return (
     <Accordion label={label} color={originalVariantColors.main}>
-      <label htmlFor={`auto-color-${colorName}`}>auto set color</label>
-      <input id={`auto-color-${colorName}`} type="checkbox" checked={isAutoColor} onChange={handleAutoColorChange} />
+      <Checkbox checked={isAutoColor} setChecked={handleAutoColorChange} label='auto set color'/>
       <label htmlFor={`auto-color-${colorName}-strength`}>Contrast</label>
       <input id={`auto-color-${colorName}-strength`} type="number" disabled={!isAutoColor} value={contrastScale} onChange={(e): void => { setContrastScale(parseInt(e.target.value)) }} />
       {variants.map((variant) => (

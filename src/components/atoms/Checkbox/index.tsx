@@ -29,8 +29,8 @@ const Container = styled.div<{align: Align}>(
 const StyledLabel = styled.label<{disabled: boolean}>(
   ({ theme, disabled }): string => {
     return `
-    color: ${theme.palette.colors.foreground.main};
-    cursor: ${disabled ? 'intial' : 'pointer'};
+      color: ${disabled ? theme.palette.colors.disabled.main : theme.palette.colors.foreground.main};
+      cursor: ${disabled ? 'intial' : 'pointer'};
     `
   }
 )
@@ -41,7 +41,7 @@ const Checkbox = ({
   label,
   id,
   align = 'left',
-  color = 'primary',
+  color = 'foreground',
   disabled = false
 }: CheckboxProps): JSX.Element => {
   const handleOnChange = (): void => {
