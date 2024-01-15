@@ -57,7 +57,7 @@ const ColorAccordion: React.FC<ColorAccordionProps> = ({
 
   return (
     <Accordion label={label} color={originalVariantColors.main}>
-      <Checkbox checked={isAutoColor} setChecked={handleAutoColorChange} label='auto set color'/>
+      <Checkbox checked={isAutoColor} onChange={handleAutoColorChange} label='auto set color' />
       <label htmlFor={`auto-color-${colorName}-strength`}>Contrast</label>
       <input id={`auto-color-${colorName}-strength`} type="number" disabled={!isAutoColor} value={contrastScale} onChange={(e): void => { setContrastScale(parseInt(e.target.value)) }} />
       {variants.map((variant) => (

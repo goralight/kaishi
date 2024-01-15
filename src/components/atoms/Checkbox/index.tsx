@@ -7,7 +7,7 @@ type Align = 'left' | 'right'
 
 interface CheckboxProps {
   checked: boolean
-  setChecked: (checked: boolean) => void
+  onChange: () => void
   label?: string
   id?: string
   align?: Align
@@ -37,7 +37,7 @@ const StyledLabel = styled.label<{disabled: boolean}>(
 
 const Checkbox = ({
   checked,
-  setChecked,
+  onChange,
   label,
   id,
   align = 'left',
@@ -48,7 +48,7 @@ const Checkbox = ({
     if (disabled) {
       return
     }
-    setChecked(!checked)
+    onChange()
   }
 
   let iconColor = color

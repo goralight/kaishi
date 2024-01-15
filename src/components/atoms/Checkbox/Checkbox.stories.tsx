@@ -11,12 +11,12 @@ const meta = {
   },
   args: {
     checked: false,
-    setChecked: (): void =>  {console.log('hello')},
+    onChange: (): void => { console.log('hello') },
     id: 'id',
     label: 'label for checkbox',
     align: 'left',
-    color: 'primary',
-    disabled: true
+    color: 'foreground',
+    disabled: false
 
   },
   tags: ['autodocs']
@@ -29,8 +29,13 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   render: (args) => {
     const [checked, setChecked] = useState(false)
+
+    const handleOnChange = (): void => {
+      setChecked(!checked)
+    }
+
     return (
-      <Checkbox id={args.id} color={args.color} disabled={args.disabled} label={args.label} align={args.align} checked={checked} setChecked={setChecked}/>
+      <Checkbox id={args.id} color={args.color} disabled={args.disabled} label={args.label} align={args.align} checked={checked} onChange={handleOnChange} />
     )
   }
 }
