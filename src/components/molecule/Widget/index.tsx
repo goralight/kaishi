@@ -5,11 +5,10 @@ import { DraggableEvent } from 'react-draggable'
 import { DraggableData, Position, ResizableDelta, Rnd } from 'react-rnd'
 import Icon from '../../atoms/Icon'
 
-interface WidgetProps {
+export interface CommonWidgetProps {
   id: string
-  onDeleteWidget: (id: string) => void
+  name: string
   editMode: boolean
-  lockAspectRatio?: boolean
   wh: { w: number, h: number }
   setWh: (wh: { w: number, h: number }) => void
   xy: { x: number, y: number }
@@ -18,7 +17,11 @@ interface WidgetProps {
   setOriginalWh: (wh: { w: number, h: number }) => void
   zIndex: number
   setZIndex: (zIndex: number) => void
-  shouldScale?: boolean
+  scale: { x: number, y: number }
+  setScale: (scale: { x: number, y: number }) => void
+}
+
+interface WidgetProps extends CommonWidgetProps {
   children: React.ReactNode
 }
 
@@ -97,7 +100,7 @@ const Pipe = styled.span(
 
 const Widget: React.FC<WidgetProps> = ({
   id,
-  onDeleteWidget,
+  name,
   wh,
   setWh,
   xy,
@@ -106,19 +109,21 @@ const Widget: React.FC<WidgetProps> = ({
   setOriginalWh,
   zIndex,
   setZIndex,
+  scale,
+  setScale,
   editMode,
-  lockAspectRatio,
-  shouldScale = true,
   children
 }) => {
   const contentContainerRef = React.useRef<HTMLDivElement>(null)
 
   const [showTools, setShowTools] = useState(false)
+  const [lockAspectRatio, setLockAspectRatio] = useState(true)
+  const [shouldScale, setShouldScale] = useState(true)
   // const [originalWh, setOriginalWh] = useState({ w: 0, h: 0 })
   // const [wh, setWh] = useState({ w: 0, h: 0 })
   // const [xy, setXy] = useState({ x: 0, y: 0 })
   // const [zIndex, setZIndex] = useState(5)
-  const [scale, setScale] = useState({ x: 1, y: 1 })
+  // const [scale, setScale] = useState({ x: 1, y: 1 })
 
   const scaleToFit = (): void => {
     if (contentContainerRef.current && shouldScale) {
@@ -177,7 +182,7 @@ const Widget: React.FC<WidgetProps> = ({
   }
 
   const handleDeleteWidget = (): void => {
-    onDeleteWidget(id)
+    console.log('delete comp id:', id)
   }
 
   const resizing: Enable = {
@@ -216,9 +221,12 @@ const Widget: React.FC<WidgetProps> = ({
             <Icon icon='chevron-circle-up' prefix='fas' color='primary' onClick={(): void => { handleZIndex(true) }} />
           </ZIndexContainer>
           <Pipe>|</Pipe>
-          <Icon icon='info-circle' prefix='fas' color='foreground' title={id} />
+          <Icon icon={lockAspectRatio ? 'lock' : 'lock-open'} prefix='fas' color={lockAspectRatio ? 'primary' : 'foreground'} onClick={(): void => { setLockAspectRatio(!lockAspectRatio) }} />
+          <Icon icon='up-right-and-down-left-from-center' prefix='fas' color={shouldScale ? 'primary' : 'foreground'} onClick={(): void => { setShouldScale(!shouldScale) }} />
           <Pipe>|</Pipe>
-          <Icon icon='circle-xmark' color='secondary' onClick={handleDeleteWidget} />
+          <Icon icon='info-circle' prefix='fas' color='foreground' title={`name:${name}\nid:${id}`} />
+          <Pipe>|</Pipe>
+          <Icon icon='circle-xmark' color='error' onClick={handleDeleteWidget} />
         </Tools>
       ) : null}
       <WidgetContentContainer

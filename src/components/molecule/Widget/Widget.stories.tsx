@@ -12,7 +12,7 @@ const meta = {
   },
   args: {
     id: 'widget1',
-    onDeleteWidget: (id): void => { console.log('deleted', id) },
+    name: 'widget 1',
     editMode: false,
     children: <div></div>,
     wh: { w: 0, h: 0 },
@@ -22,7 +22,9 @@ const meta = {
     originalWh: { w: 0, h: 0 },
     setOriginalWh: (): null => null,
     zIndex: 0,
-    setZIndex: (): null => null
+    setZIndex: (): null => null,
+    scale: { x: 1, y: 1 },
+    setScale: (scale): null => null
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof Widget>
@@ -33,9 +35,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     id: 'sakura-gif',
-    onDeleteWidget: (id): void => { console.log('deleted', id) },
     editMode: true,
-    lockAspectRatio: false,
     children: (
       <img src='https://64.media.tumblr.com/fad5acf8e8720fe9096aa575117d48cd/tumblr_oedw5v5oev1rh2n3qo1_500.gif' />
     ),
@@ -67,9 +67,7 @@ Primary.storyName = 'Widget'
 export const Embed: Story = {
   args: {
     id: 'embed',
-    onDeleteWidget: (id): void => { console.log('deleted', id) },
     editMode: true,
-    lockAspectRatio: false,
     children: (
       <div></div>
     ),
