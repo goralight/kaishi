@@ -277,6 +277,9 @@ const Widget: React.FC<WidgetProps> = ({
   }
 
   const handleDeleteWidget = (): void => {
+    setAllWidgetValues((prev: any) => {
+      return prev.filter((widget: any) => widget.id !== id)
+    })
     console.log('delete comp id:', id)
   }
 

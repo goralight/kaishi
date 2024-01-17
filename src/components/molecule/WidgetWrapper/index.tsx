@@ -20,9 +20,11 @@ const WidgetWrapper = () => {
     dispatch(updateAllWidgets(allWidgetValues))
   }, [allWidgetValues])
 
+  useEffect(() => {
+    setAllWidgetValues(widgets)
+  }, [widgets.length])
 
   const toRender = allWidgetValues.map((widget: any) => {
-    console.log('Logged!', widget)
     switch (widget.type) {
       case 'GoogleCalendar':
         return (
