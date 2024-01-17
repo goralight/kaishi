@@ -8,17 +8,19 @@ import Icon from '../../atoms/Icon'
 export interface CommonWidgetProps {
   id: string
   name: string
+  type: string
   editMode: boolean
   wh: { w: number, h: number }
-  setWh: (wh: { w: number, h: number }) => void
+  // setWh: (wh: { w: number, h: number }) => void
   xy: { x: number, y: number }
-  setXy: (xy: { x: number, y: number }) => void
+  // setXy: (xy: { x: number, y: number }) => void
   originalWh: { w: number, h: number }
-  setOriginalWh: (wh: { w: number, h: number }) => void
+  // setOriginalWh: (wh: { w: number, h: number }) => void
   zIndex: number
-  setZIndex: (zIndex: number) => void
+  // setZIndex: (zIndex: number) => void
   scale: { x: number, y: number }
-  setScale: (scale: { x: number, y: number }) => void
+  // setScale: (scale: { x: number, y: number }) => void
+  setAllWidgetValues: (widgetValues: any) => void
 }
 
 interface WidgetProps extends CommonWidgetProps {
@@ -102,16 +104,17 @@ const Widget: React.FC<WidgetProps> = ({
   id,
   name,
   wh,
-  setWh,
+  // setWh,
   xy,
-  setXy,
+  // setXy,
   originalWh,
-  setOriginalWh,
+  // setOriginalWh,
   zIndex,
-  setZIndex,
+  // setZIndex,
   scale,
-  setScale,
+  // setScale,
   editMode,
+  setAllWidgetValues,
   children
 }) => {
   const contentContainerRef = React.useRef<HTMLDivElement>(null)
@@ -125,25 +128,79 @@ const Widget: React.FC<WidgetProps> = ({
   // const [zIndex, setZIndex] = useState(5)
   // const [scale, setScale] = useState({ x: 1, y: 1 })
 
+  const updateWidgetValue = (widgetPrev: any, key: string, value: any): any => {
+    const index = widgetPrev.findIndex((widget: any) => widget.id === id)
+
+    if (index === -1) {
+      return widgetPrev
+    }
+
+    const updatedArray = [
+      ...widgetPrev.slice(0, index),
+      {
+        ...widgetPrev[index],
+        [key]: value
+      },
+      ...widgetPrev.slice(index + 1)
+    ]
+
+    return updatedArray
+  }
+
   const scaleToFit = (): void => {
     if (contentContainerRef.current && shouldScale) {
       const x = wh.w / contentContainerRef.current.offsetWidth
       const y = wh.h / contentContainerRef.current.offsetHeight
-      setScale({ x, y })
+      setAllWidgetValues((prev: any) => {
+        // const index = prev.findIndex((widget: any) => widget.id === id)
+
+        // if (index === -1) {
+        //   return prev
+        // }
+
+        // const updatedArray = [
+        //   ...prev.slice(0, index),
+        //   {
+        //     ...prev[index],
+        //     scale: { x, y }
+        //   },
+        //   ...prev.slice(index + 1)
+        // ]
+
+        return updateWidgetValue(prev, 'scale', { x, y })
+      })
+      // setScale({ x, y })
     }
   }
 
   useEffect(() => {
     if (contentContainerRef.current) {
       if (wh.w === 0 || wh.h === 0) { // if 0, it needs to figure out what the original size is and set it, 0 should be for first load of widget
-        setWh({
-          w: contentContainerRef.current.offsetWidth,
-          h: contentContainerRef.current.offsetHeight
+        // setWh({
+        //   w: contentContainerRef.current.offsetWidth,
+        //   h: contentContainerRef.current.offsetHeight
+        // })
+        // setOriginalWh({
+        //   w: contentContainerRef.current.offsetWidth,
+        //   h: contentContainerRef.current.offsetHeight
+        // })
+
+        setAllWidgetValues((prev: any) => {
+          return updateWidgetValue(prev, 'wh', { w: contentContainerRef?.current?.offsetWidth, h: contentContainerRef?.current?.offsetHeight })
         })
-        setOriginalWh({
-          w: contentContainerRef.current.offsetWidth,
-          h: contentContainerRef.current.offsetHeight
+
+        setAllWidgetValues((prev: any) => {
+          return updateWidgetValue(prev, 'originalWh', { w: contentContainerRef?.current?.offsetWidth, h: contentContainerRef?.current?.offsetHeight })
         })
+
+        // setAllWidgetValues((prev: any) => ({
+        //   ...prev,
+        //   [id]: {
+        //     wh: { w: contentContainerRef?.current?.offsetWidth, h: contentContainerRef?.current?.offsetHeight },
+        //     originalWh: { w: contentContainerRef?.current?.offsetWidth, h: contentContainerRef?.current?.offsetHeight }
+        //   }
+        // }))
+
       }
     }
     scaleToFit()
@@ -154,15 +211,41 @@ const Widget: React.FC<WidgetProps> = ({
   }, [wh])
 
   const handleOnResize = (e: MouseEvent | TouchEvent, dir: ResizeDirection, elementRef: HTMLElement, delta: ResizableDelta, position: Position): void => {
-    setWh({
-      w: parseInt(elementRef.style.width),
-      h: parseInt(elementRef.style.height)
+    // setWh({
+    //   w: parseInt(elementRef.style.width),
+    //   h: parseInt(elementRef.style.height)
+    // })
+    // setXy({ x: position.x, y: position.y })
+
+    // setAllWidgetValues((prev: any) => ({
+    //   ...prev,
+    //   [id]: {
+    //     wh: { w: parseInt(elementRef.style.width), h: parseInt(elementRef.style.height) },
+    //     xy: { x: position.x, y: position.y }
+    //   }
+    // }))
+
+    setAllWidgetValues((prev: any) => {
+      return updateWidgetValue(prev, 'wh', { w: parseInt(elementRef.style.width), h: parseInt(elementRef.style.height) })
     })
-    setXy({ x: position.x, y: position.y })
+
+    setAllWidgetValues((prev: any) => {
+      return updateWidgetValue(prev, 'xy', { x: position.x, y: position.y })
+    })
   }
 
   const handleOnDragStop = (e: DraggableEvent, data: DraggableData): void => {
-    setXy({ x: data.x, y: data.y })
+    // setXy({ x: data.x, y: data.y })
+    // setAllWidgetValues((prev: any) => ({
+    //   ...prev,
+    //   [id]: {
+    //     xy: { x: data.x, y: data.y }
+    //   }
+    // }))
+
+    setAllWidgetValues((prev: any) => {
+      return updateWidgetValue(prev, 'xy', { x: data.x, y: data.y })
+    })
   }
 
   const handleOnMouseEnter = (): void => {
@@ -174,11 +257,23 @@ const Widget: React.FC<WidgetProps> = ({
   }
 
   const handleZIndex = (increment: boolean): void => {
+    let toStoreIndex: number
     if (increment) {
-      setZIndex(zIndex + 1)
+      toStoreIndex = zIndex + 1
     } else {
-      setZIndex(zIndex === 0 ? 0 : zIndex - 1)
+      toStoreIndex = zIndex === 0 ? 0 : zIndex - 1
     }
+
+    setAllWidgetValues((prev: any) => {
+      return updateWidgetValue(prev, 'zIndex', toStoreIndex)
+    })
+
+    // setAllWidgetValues((prev: any) => ({
+    //   ...prev,
+    //   [id]: {
+    //     zIndex: toStoreIndex
+    //   }
+    // }))
   }
 
   const handleDeleteWidget = (): void => {

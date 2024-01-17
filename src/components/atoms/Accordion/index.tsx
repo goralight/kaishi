@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
 import React from 'react'
+import { Colors } from '../../../theme'
 
 interface AccordionProps {
   label: string
-  color?: string
+  color?: keyof Colors
   isOpenOnMount?: boolean
   children: React.ReactNode
 }
@@ -32,11 +33,11 @@ const StyledDetails = styled.details(
   }
 )
 
-const StyledSummary = styled.summary<{ color: string | undefined }>(
+const StyledSummary = styled.summary<{ color: keyof Colors | undefined }>(
   ({ theme, color }): string => {
     return `
       padding: ${theme.spacing.xs}px;
-      background-color: ${color ? color : theme.palette.colors.background.main};
+      background-color: ${color ? theme.palette.colors[color].main : theme.palette.colors.background.main};
       border-radius: ${theme.border.radius.sm}px;
       cursor: pointer;
       list-style: none;
@@ -44,11 +45,11 @@ const StyledSummary = styled.summary<{ color: string | undefined }>(
   }
 )
 
-const Content = styled.div(
+const Content = styled.div<{ color?: keyof Colors }>(
   ({ theme, color }): string => {
     return `
       padding: ${theme.spacing.xs}px;
-      background-color: ${color ? color : theme.palette.colors.background.dark};
+      background-color: ${color ? theme.palette.colors[color].dark : theme.palette.colors.background.dark};
       border-bottom-left-radius: ${theme.border.radius.sm}px;
       border-bottom-right-radius: ${theme.border.radius.sm}px;
     `

@@ -3,10 +3,12 @@ import { v4 as uuidv4 } from 'uuid'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 import SlideIn from '../../components/atoms/SlideIn'
 import Button from '../../components/atoms/Button'
-import { addTheme, removeTheme, selectTheme } from '../../store/features/ThemeSlice'
+import { addTheme, removeTheme, selectTheme } from '../../store/features/storedThemeSlice'
 import ThemePaletteSelection from '../../components/molecule/ThemePaletteSelection'
 import { standardTheme } from '../../theme'
 import Accordion from '../../components/atoms/Accordion'
+import { addWidget } from '../../store/features/storedWidgetsSlice'
+import WidgetWrapper from '../../components/molecule/WidgetWrapper'
 
 interface SettingsProps {
   isVisible: boolean
@@ -21,6 +23,7 @@ const Settings: React.FC<SettingsProps> = ({
   const dispatch = useAppDispatch()
 
   const { themes, selectedThemeId } = useAppSelector((state) => state.storedThemes)
+  const { widgets } = useAppSelector((state) => state.storedWidgets)
 
   const [currentEditingTheme, setCurrentEditingTheme] = useState('')
 
@@ -28,6 +31,24 @@ const Settings: React.FC<SettingsProps> = ({
     const uuid = uuidv4()
     dispatch(addTheme({
       id: uuid, name: `test-${uuid}`, theme: standardTheme
+    }))
+  }
+
+  const handleAddCalendarWidget = (): void => {
+    dispatch(addWidget({
+      id: uuidv4(),
+      name: 'Calendar',
+      type: 'GoogleCalendar',
+      wh: { w: 700, h: 700 },
+      xy: { x: 0, y: 0 },
+      originalWh: { w: 700, h: 700 },
+      zIndex: 0,
+      scale: { x: 1, y: 1 },
+      widgetValues: {
+        src: 'https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FLondon&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=1&showTz=1&src=Njk1M2E3MDkwZTY3NjQ4OWYwYTM0N2YwMWIzMDNjNTkwODc0NTZlY2UyZDcxYzJmNWU4MTAyZWRlYmM2YTEyZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4udWsjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23D50000&color=%230B8043',
+        calendarWidth: 700,
+        calendarHeight: 700
+      }
     }))
   }
 
@@ -71,6 +92,12 @@ const Settings: React.FC<SettingsProps> = ({
             <Button onClick={(): void => { setCurrentEditingTheme('') }}>Close</Button>
           </>
         )}
+      </Accordion>
+      <Accordion label='Widgets'>
+        <h3>Widgets</h3>
+        <Button onClick={(): void => { handleAddCalendarWidget() }}>Add Calendar Widget</Button>
+        <br />
+        <WidgetWrapper />
       </Accordion>
 
     </SlideIn>

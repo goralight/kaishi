@@ -1,64 +1,60 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Widget, { CommonWidgetProps } from '../../molecule/Widget'
-import Icon from '../../atoms/Icon'
 
-interface GoogleCalendarProps extends CommonWidgetProps {
+export interface GoogleCalendarProperties {
   src: string
   calendarWidth: number
   calendarHeight: number
 }
 
+interface GoogleCalendarProps extends CommonWidgetProps, GoogleCalendarProperties { }
+
 const GoogleCalendar: React.FC<GoogleCalendarProps> = ({
   id,
   name,
+  type = 'GoogleCalendar',
   editMode,
   zIndex,
-  setZIndex,
+  // setZIndex,
   xy,
-  setXy,
+  // setXy,
   wh,
-  setWh,
+  // setWh,
   originalWh,
-  setOriginalWh,
+  // setOriginalWh,
   scale,
-  setScale,
+  // setScale,
+  setAllWidgetValues,
   src,
   calendarWidth,
   calendarHeight
 }: GoogleCalendarProps) => {
-  const [showAddMenu, setShowAddMenu] = useState(false)
 
   return (
     <Widget
       id={id}
       name={name}
+      type={type}
       editMode={editMode}
       wh={wh}
-      setWh={setWh}
+      // setWh={setWh}
       xy={xy}
-      setXy={setXy}
+      // setXy={setXy}
       originalWh={originalWh}
-      setOriginalWh={setOriginalWh}
+      // setOriginalWh={setOriginalWh}
       zIndex={zIndex}
-      setZIndex={setZIndex}
+      // setZIndex={setZIndex}
       scale={scale}
-      setScale={setScale}
+      // setScale={setScale}
+      setAllWidgetValues={setAllWidgetValues}
     >
-      <div>
-        <iframe
-          // src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FLondon&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=1&showTz=1&src=Njk1M2E3MDkwZTY3NjQ4OWYwYTM0N2YwMWIzMDNjNTkwODc0NTZlY2UyZDcxYzJmNWU4MTAyZWRlYmM2YTEyZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4udWsjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23D50000&color=%230B8043"
-          src={src}
-          width={calendarWidth}
-          height={calendarHeight}
-          style={{ borderWidth: '0' }}
-        />
-        <Icon icon={!showAddMenu ? 'plus-circle' : 'xmark-circle'} prefix='fas' color='primary' onClick={() => { setShowAddMenu(!showAddMenu) }} />
-        {showAddMenu ? (
-          <div>
-            add menu
-          </div>
-        ) : null}
-      </div>
+      <iframe
+        title={name}
+        src={src}
+        width={calendarWidth}
+        height={calendarHeight}
+        style={{ borderWidth: '0' }}
+      />
     </Widget>
   )
 }

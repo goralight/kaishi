@@ -7,12 +7,12 @@ export interface ThemeState  {
   theme: StandardTheme
 }
 
-export interface ThemesState {
+export interface StoredThemesState {
   themes: ThemeState[]
   selectedThemeId: string
 }
 
-const initialState: ThemesState = {
+const initialState: StoredThemesState = {
   themes: [
     {
       id: 'default',
@@ -23,7 +23,7 @@ const initialState: ThemesState = {
   selectedThemeId: 'default'
 }
 
-export const themeSlice = createSlice({
+export const storedThemeSlice = createSlice({
   name: 'themes',
   initialState: initialState,
   reducers: {
@@ -53,5 +53,5 @@ export const themeSlice = createSlice({
   }
 })
 
-export default themeSlice.reducer
-export const { addTheme, removeTheme, updateTheme, selectTheme } = themeSlice.actions
+export default storedThemeSlice.reducer
+export const { addTheme, removeTheme, updateTheme, selectTheme } = storedThemeSlice.actions

@@ -1,9 +1,11 @@
-import { ThemesState } from '../features/ThemeSlice'
+import { StoredThemesState } from '../features/storedThemeSlice'
 import { StoredImagesState } from '../features/storedImagesSlice'
+import { StoredWidgetsState } from '../features/storedWidgetsSlice'
 
 export interface RootState {
   storedImages: StoredImagesState
-  storedThemes: ThemesState
+  storedThemes: StoredThemesState
+  storedWidgets: StoredWidgetsState
   // add as we need
 }
 
