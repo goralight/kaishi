@@ -23,7 +23,6 @@ const Settings: React.FC<SettingsProps> = ({
   const dispatch = useAppDispatch()
 
   const { themes, selectedThemeId } = useAppSelector((state) => state.storedThemes)
-  const { widgets } = useAppSelector((state) => state.storedWidgets)
 
   const [currentEditingTheme, setCurrentEditingTheme] = useState('')
 
@@ -97,8 +96,8 @@ const Settings: React.FC<SettingsProps> = ({
         <h3>Widgets</h3>
         <Button onClick={(): void => { handleAddCalendarWidget() }}>Add Calendar Widget</Button>
         <br />
-        <WidgetWrapper />
       </Accordion>
+      <WidgetWrapper />
 
     </SlideIn>
   )

@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../../store/store'
+import React, { useState } from 'react'
+import { useAppSelector } from '../../../store/store'
 import GoogleCalendar from '../../widgets/GoogleCalendar'
+import { StoredWidgetState } from '../../../store/features/storedWidgetsSlice'
 import Button from '../../atoms/Button'
-import { addWidget, updateAllWidgets } from '../../../store/features/storedWidgetsSlice'
 
-const WidgetWrapper = () => {
-  const dispatch = useAppDispatch()
+const WidgetWrapper = (): JSX.Element => {
   const { widgets } = useAppSelector((state) => state.storedWidgets)
 
   const [isEditMode, setIsEditMode] = useState(true)
-  const [allWidgetValues, setAllWidgetValues] = useState<any>(widgets)
 
-  // useEffect(() => {
-  //   console.log('widgets', widgets)
-  //   setAllWidgetValues(widgets.map((widget) => widget.widgetValues))
-  // }, [widgets])
-
-  useEffect(() => {
-    dispatch(updateAllWidgets(allWidgetValues))
-  }, [allWidgetValues])
-
-  useEffect(() => {
-    setAllWidgetValues(widgets)
-  }, [widgets.length])
-
-  const toRender = allWidgetValues.map((widget: any) => {
+  const toRender = widgets.map((widget: StoredWidgetState) => {
     switch (widget.type) {
       case 'GoogleCalendar':
         return (
@@ -34,17 +19,11 @@ const WidgetWrapper = () => {
             name={widget.name}
             type={widget.type}
             editMode={isEditMode}
-            setAllWidgetValues={setAllWidgetValues}
             xy={widget.xy}
-            // setXy={widget.setXy}
             wh={widget.wh}
-            // setWh={widget.setWh}
             originalWh={widget.originalWh}
-            // setOriginalWh={widget.setOriginalWh}
             zIndex={widget.zIndex}
-            // setZIndex={widget.setZIndex}
             scale={widget.scale}
-            // setScale={widget.setScale}
             src={widget.widgetValues.src}
             calendarWidth={widget.widgetValues.calendarWidth}
             calendarHeight={widget.widgetValues.calendarHeight}

@@ -1,29 +1,13 @@
 import styled from '@emotion/styled'
 import { Enable, ResizeDirection } from 're-resizable'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DraggableEvent } from 'react-draggable'
 import { DraggableData, Position, ResizableDelta, Rnd } from 'react-rnd'
 import Icon from '../../atoms/Icon'
+import { useAppDispatch } from '../../../store/store'
+import { CommonWidgetProperties, removeWidget, updateWidget } from '../../../store/features/storedWidgetsSlice'
 
-export interface CommonWidgetProps {
-  id: string
-  name: string
-  type: string
-  editMode: boolean
-  wh: { w: number, h: number }
-  // setWh: (wh: { w: number, h: number }) => void
-  xy: { x: number, y: number }
-  // setXy: (xy: { x: number, y: number }) => void
-  originalWh: { w: number, h: number }
-  // setOriginalWh: (wh: { w: number, h: number }) => void
-  zIndex: number
-  // setZIndex: (zIndex: number) => void
-  scale: { x: number, y: number }
-  // setScale: (scale: { x: number, y: number }) => void
-  setAllWidgetValues: (widgetValues: any) => void
-}
-
-interface WidgetProps extends CommonWidgetProps {
+interface WidgetProps extends CommonWidgetProperties {
   children: React.ReactNode
 }
 
@@ -104,103 +88,53 @@ const Widget: React.FC<WidgetProps> = ({
   id,
   name,
   wh,
-  // setWh,
   xy,
-  // setXy,
   originalWh,
-  // setOriginalWh,
   zIndex,
-  // setZIndex,
   scale,
-  // setScale,
   editMode,
-  setAllWidgetValues,
   children
 }) => {
+
+  const dispatch = useAppDispatch()
+
   const contentContainerRef = React.useRef<HTMLDivElement>(null)
 
   const [showTools, setShowTools] = useState(false)
   const [lockAspectRatio, setLockAspectRatio] = useState(true)
   const [shouldScale, setShouldScale] = useState(true)
-  // const [originalWh, setOriginalWh] = useState({ w: 0, h: 0 })
-  // const [wh, setWh] = useState({ w: 0, h: 0 })
-  // const [xy, setXy] = useState({ x: 0, y: 0 })
-  // const [zIndex, setZIndex] = useState(5)
-  // const [scale, setScale] = useState({ x: 1, y: 1 })
-
-  const updateWidgetValue = (widgetPrev: any, key: string, value: any): any => {
-    const index = widgetPrev.findIndex((widget: any) => widget.id === id)
-
-    if (index === -1) {
-      return widgetPrev
-    }
-
-    const updatedArray = [
-      ...widgetPrev.slice(0, index),
-      {
-        ...widgetPrev[index],
-        [key]: value
-      },
-      ...widgetPrev.slice(index + 1)
-    ]
-
-    return updatedArray
-  }
+  const [_wh, _setWh] = useState(wh)
+  const [_xy, _setXy] = useState(xy)
 
   const scaleToFit = (): void => {
     if (contentContainerRef.current && shouldScale) {
-      const x = wh.w / contentContainerRef.current.offsetWidth
-      const y = wh.h / contentContainerRef.current.offsetHeight
-      setAllWidgetValues((prev: any) => {
-        // const index = prev.findIndex((widget: any) => widget.id === id)
-
-        // if (index === -1) {
-        //   return prev
-        // }
-
-        // const updatedArray = [
-        //   ...prev.slice(0, index),
-        //   {
-        //     ...prev[index],
-        //     scale: { x, y }
-        //   },
-        //   ...prev.slice(index + 1)
-        // ]
-
-        return updateWidgetValue(prev, 'scale', { x, y })
-      })
-      // setScale({ x, y })
+      const x = _wh.w / contentContainerRef.current.offsetWidth
+      const y = _wh.h / contentContainerRef.current.offsetHeight
+      dispatch(updateWidget({
+        id,
+        scale: {
+          x,
+          y
+        }
+      }))
     }
   }
 
   useEffect(() => {
     if (contentContainerRef.current) {
-      if (wh.w === 0 || wh.h === 0) { // if 0, it needs to figure out what the original size is and set it, 0 should be for first load of widget
-        // setWh({
-        //   w: contentContainerRef.current.offsetWidth,
-        //   h: contentContainerRef.current.offsetHeight
-        // })
-        // setOriginalWh({
-        //   w: contentContainerRef.current.offsetWidth,
-        //   h: contentContainerRef.current.offsetHeight
-        // })
-
-        setAllWidgetValues((prev: any) => {
-          return updateWidgetValue(prev, 'wh', { w: contentContainerRef?.current?.offsetWidth, h: contentContainerRef?.current?.offsetHeight })
-        })
-
-        setAllWidgetValues((prev: any) => {
-          return updateWidgetValue(prev, 'originalWh', { w: contentContainerRef?.current?.offsetWidth, h: contentContainerRef?.current?.offsetHeight })
-        })
-
-        // setAllWidgetValues((prev: any) => ({
-        //   ...prev,
-        //   [id]: {
-        //     wh: { w: contentContainerRef?.current?.offsetWidth, h: contentContainerRef?.current?.offsetHeight },
-        //     originalWh: { w: contentContainerRef?.current?.offsetWidth, h: contentContainerRef?.current?.offsetHeight }
-        //   }
-        // }))
-
+      if (_wh.w === 0 || _wh.h === 0) { // if 0, it needs to figure out what the original size is and set it, 0 should be for first load of widget
+        const { offsetWidth, offsetHeight } = contentContainerRef.current
+        dispatch(updateWidget({
+          id,
+          wh: {
+            w: offsetWidth,
+            h: offsetHeight
+          },
+          originalWh: {
+            w: offsetWidth,
+            h: offsetHeight
+          }
+        }))
       }
     }
     scaleToFit()
@@ -208,44 +142,44 @@ const Widget: React.FC<WidgetProps> = ({
 
   useEffect(() => {
     scaleToFit()
-  }, [wh])
+    dispatch(updateWidget({
+      id,
+      wh: {
+        w: _wh.w,
+        h: _wh.h
+      },
+      xy: {
+        x: _xy.x,
+        y: _xy.y
+      }
+    }))
+  }, [_wh, _xy])
 
   const handleOnResize = (e: MouseEvent | TouchEvent, dir: ResizeDirection, elementRef: HTMLElement, delta: ResizableDelta, position: Position): void => {
-    // setWh({
-    //   w: parseInt(elementRef.style.width),
-    //   h: parseInt(elementRef.style.height)
-    // })
-    // setXy({ x: position.x, y: position.y })
+    const { x, y } = position
+    const { width, height } = elementRef.style
 
-    // setAllWidgetValues((prev: any) => ({
-    //   ...prev,
-    //   [id]: {
-    //     wh: { w: parseInt(elementRef.style.width), h: parseInt(elementRef.style.height) },
-    //     xy: { x: position.x, y: position.y }
-    //   }
-    // }))
-
-    setAllWidgetValues((prev: any) => {
-      return updateWidgetValue(prev, 'wh', { w: parseInt(elementRef.style.width), h: parseInt(elementRef.style.height) })
+    _setWh({
+      w: parseInt(width),
+      h: parseInt(height)
+    })
+    _setXy({
+      x,
+      y
     })
 
-    setAllWidgetValues((prev: any) => {
-      return updateWidgetValue(prev, 'xy', { x: position.x, y: position.y })
-    })
   }
 
   const handleOnDragStop = (e: DraggableEvent, data: DraggableData): void => {
-    // setXy({ x: data.x, y: data.y })
-    // setAllWidgetValues((prev: any) => ({
-    //   ...prev,
-    //   [id]: {
-    //     xy: { x: data.x, y: data.y }
-    //   }
-    // }))
+    const { x, y } = data
 
-    setAllWidgetValues((prev: any) => {
-      return updateWidgetValue(prev, 'xy', { x: data.x, y: data.y })
-    })
+    dispatch(updateWidget({
+      id,
+      xy: {
+        x,
+        y
+      }
+    }))
   }
 
   const handleOnMouseEnter = (): void => {
@@ -258,29 +192,21 @@ const Widget: React.FC<WidgetProps> = ({
 
   const handleZIndex = (increment: boolean): void => {
     let toStoreIndex: number
+
     if (increment) {
       toStoreIndex = zIndex + 1
     } else {
       toStoreIndex = zIndex === 0 ? 0 : zIndex - 1
     }
 
-    setAllWidgetValues((prev: any) => {
-      return updateWidgetValue(prev, 'zIndex', toStoreIndex)
-    })
-
-    // setAllWidgetValues((prev: any) => ({
-    //   ...prev,
-    //   [id]: {
-    //     zIndex: toStoreIndex
-    //   }
-    // }))
+    dispatch(updateWidget({
+      id,
+      zIndex: toStoreIndex
+    }))
   }
 
   const handleDeleteWidget = (): void => {
-    setAllWidgetValues((prev: any) => {
-      return prev.filter((widget: any) => widget.id !== id)
-    })
-    console.log('delete comp id:', id)
+    dispatch(removeWidget(id))
   }
 
   const resizing: Enable = {

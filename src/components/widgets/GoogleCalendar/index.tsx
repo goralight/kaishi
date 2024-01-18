@@ -1,5 +1,6 @@
 import React from 'react'
-import Widget, { CommonWidgetProps } from '../../molecule/Widget'
+import Widget from '../../molecule/Widget'
+import { CommonWidgetProperties, } from '../../../store/features/storedWidgetsSlice'
 
 export interface GoogleCalendarProperties {
   src: string
@@ -7,7 +8,7 @@ export interface GoogleCalendarProperties {
   calendarHeight: number
 }
 
-interface GoogleCalendarProps extends CommonWidgetProps, GoogleCalendarProperties { }
+interface GoogleCalendarProps extends CommonWidgetProperties, GoogleCalendarProperties { }
 
 const GoogleCalendar: React.FC<GoogleCalendarProps> = ({
   id,
@@ -15,16 +16,10 @@ const GoogleCalendar: React.FC<GoogleCalendarProps> = ({
   type = 'GoogleCalendar',
   editMode,
   zIndex,
-  // setZIndex,
   xy,
-  // setXy,
   wh,
-  // setWh,
   originalWh,
-  // setOriginalWh,
   scale,
-  // setScale,
-  setAllWidgetValues,
   src,
   calendarWidth,
   calendarHeight
@@ -37,16 +32,10 @@ const GoogleCalendar: React.FC<GoogleCalendarProps> = ({
       type={type}
       editMode={editMode}
       wh={wh}
-      // setWh={setWh}
       xy={xy}
-      // setXy={setXy}
       originalWh={originalWh}
-      // setOriginalWh={setOriginalWh}
       zIndex={zIndex}
-      // setZIndex={setZIndex}
       scale={scale}
-      // setScale={setScale}
-      setAllWidgetValues={setAllWidgetValues}
     >
       <iframe
         title={name}

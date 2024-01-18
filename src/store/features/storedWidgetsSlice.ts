@@ -3,7 +3,7 @@ import { GoogleCalendarProperties } from '../../components/widgets/GoogleCalenda
 
 type WidgetValues = GoogleCalendarProperties
 
-export interface StoredWidgetState {
+export interface WidgetProperties {
   id: string
   name: string
   type: string
@@ -13,7 +13,15 @@ export interface StoredWidgetState {
   zIndex: number
   scale: { x: number, y: number }
   // pageId ?
+}
+
+export interface StoredWidgetState extends WidgetProperties {
   widgetValues: WidgetValues
+  // pageId ?
+}
+
+export interface CommonWidgetProperties extends WidgetProperties {
+  editMode: boolean
 }
 
 export interface StoredWidgetsState {
@@ -34,10 +42,10 @@ export const storedWidgetsSlice = createSlice({
     removeWidget: (state, action: PayloadAction<string>) => {
       state.widgets = state.widgets.filter((widget) => widget.id !== action.payload)
     },
-    updateWidget: (state, action: PayloadAction<StoredWidgetState>) => {
+    updateWidget: (state, action: PayloadAction<Partial<StoredWidgetState>>) => {
       state.widgets = state.widgets.map((widget) => {
         if (widget.id === action.payload.id) {
-          return action.payload
+          return { ...widget, ...action.payload }
         }
         return widget
       })
