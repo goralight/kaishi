@@ -51,6 +51,22 @@ const Settings: React.FC<SettingsProps> = ({
     }))
   }
 
+  const handleAddGoogleSheetsWidget = (): void => {
+    dispatch(addWidget({
+      id: uuidv4(),
+      name: 'Google Sheets',
+      type: 'GoogleSheets',
+      wh: { w: 700, h: 700 },
+      xy: { x: 0, y: 0 },
+      originalWh: { w: 700, h: 700 },
+      zIndex: 0,
+      scale: { x: 1, y: 1 },
+      widgetValues: {
+        src: 'https://docs.google.com/spreadsheets/d/1fn9RXbWujmt4VhIf3mitnTVf73rOwDr09wdG-qOblE8/edit?usp=sharing&amp;widget=true&amp;rm=minimal&amp;headers=false'
+      }
+    }))
+  }
+
   const handleSelectTheme = (id: string): void => {
     dispatch(selectTheme(id))
   }
@@ -96,9 +112,8 @@ const Settings: React.FC<SettingsProps> = ({
         <h3>Widgets</h3>
         <Button onClick={(): void => { handleAddCalendarWidget() }}>Add Calendar Widget</Button>
         <br />
+        <Button onClick={(): void => { handleAddGoogleSheetsWidget() }}>Add Google Sheets Widget</Button>
       </Accordion>
-      <WidgetWrapper />
-
     </SlideIn>
   )
 }

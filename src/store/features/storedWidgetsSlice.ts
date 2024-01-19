@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { GoogleCalendarProperties } from '../../components/widgets/GoogleCalendar'
+import { GoogleSheetProperties } from '../../components/widgets/GoogleSheets'
 
-type WidgetValues = GoogleCalendarProperties
+type WidgetValues = GoogleCalendarProperties | GoogleSheetProperties
 
 export interface WidgetProperties {
   id: string

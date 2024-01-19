@@ -12,6 +12,7 @@ import Icon from '../components/atoms/Icon'
 import styled from '@emotion/styled'
 import Settings from './views/Settings'
 import ThemeContext from './ThemeContext'
+import WidgetWrapper from '../components/molecule/WidgetWrapper'
 
 library.add(fab, fas, far)
 
@@ -70,6 +71,7 @@ const App = (): JSX.Element => {
             />
           </IconContainer>
           <Settings isVisible={isVisible} setIsVisible={setIsVisible} />
+          <WidgetWrapper />
         </div>
       </ThemeContext>
     </Provider>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useAppSelector } from '../../../store/store'
-import GoogleCalendar from '../../widgets/GoogleCalendar'
+import GoogleCalendar, { GoogleCalendarProperties } from '../../widgets/GoogleCalendar'
 import { StoredWidgetState } from '../../../store/features/storedWidgetsSlice'
 import Button from '../../atoms/Button'
+import GoogleSheets, { GoogleSheetProperties } from '../../widgets/GoogleSheets'
 
 const WidgetWrapper = (): JSX.Element => {
   const { widgets } = useAppSelector((state) => state.storedWidgets)
@@ -15,18 +16,19 @@ const WidgetWrapper = (): JSX.Element => {
         return (
           <GoogleCalendar
             key={widget.id}
-            id={widget.id}
-            name={widget.name}
-            type={widget.type}
             editMode={isEditMode}
-            xy={widget.xy}
-            wh={widget.wh}
-            originalWh={widget.originalWh}
-            zIndex={widget.zIndex}
-            scale={widget.scale}
-            src={widget.widgetValues.src}
-            calendarWidth={widget.widgetValues.calendarWidth}
-            calendarHeight={widget.widgetValues.calendarHeight}
+            {...widget}
+            {...(widget.widgetValues as GoogleCalendarProperties)}
+          />
+        )
+      case 'GoogleSheets':
+        return (
+          <GoogleSheets
+            key={widget.id}
+            editMode={isEditMode}
+            {...widget}
+            {...(widget.widgetValues as GoogleSheetProperties)}
+            // would be nice if there is a better way of doing this
           />
         )
       default:
@@ -36,7 +38,6 @@ const WidgetWrapper = (): JSX.Element => {
 
   return (
     <div>
-      <p>awd</p>
       <Button onClick={(): void => setIsEditMode(!isEditMode)}>Toggle edit mode</Button>
       {toRender}
     </div>
