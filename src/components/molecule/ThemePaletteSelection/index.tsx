@@ -4,7 +4,7 @@ import { Colors, standardTheme } from '../../../theme'
 import styled from '@emotion/styled'
 import ColorAccordion from '../ColorAccordion'
 import Button from '../../atoms/Button'
-import { updateTheme } from '../../../store/features/ThemeSlice'
+import { updateTheme } from '../../../store/features/storedThemeSlice'
 
 interface ThemePaletteSelectionProps {
   themeId: string,
@@ -43,7 +43,7 @@ const ThemePaletteSelection: React.FC<ThemePaletteSelectionProps> = ({
 
   const [themeColors, setThemeColors] = useState<Colors>(selectedTheme.theme.palette.colors)
 
-  const colorsNames = Object.keys(standardTheme.palette.colors)
+  const colorsNames = Object.keys(standardTheme.palette.colors) as (keyof Colors)[]
 
   const handleThemeSave = (): void => {
     dispatch(updateTheme({

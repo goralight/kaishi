@@ -11,6 +11,7 @@ interface IconProps {
   prefix?: 'fas' | 'far' | 'fab'
   color?: keyof Colors
   size?: keyof ExtraSizing,
+  title?: string
   onClick?: () => void
   id?: string
   disabled?: boolean
@@ -35,7 +36,7 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)<StyledFontAwesomeIconProps
         transition: color 0.2s ease;
 
         &:hover {
-          ${!disabled ?  `color: ${hoverColor};` : ''}; 
+          ${!disabled ? `color: ${hoverColor};` : ''}; 
         }
       ` : null}
     `
@@ -47,6 +48,7 @@ const Icon = ({
   prefix = 'far',
   color = 'primary',
   size = 'md',
+  title,
   id,
   disabled = false,
   onClick
@@ -54,7 +56,7 @@ const Icon = ({
   const theme = useTheme()
 
   return (
-    <StyledFontAwesomeIcon icon={[prefix, icon]} color={color} disabled={disabled} id={id} fontSize={theme.spacing[size]} isClickable={!!onClick} onClick={onClick} />
+    <StyledFontAwesomeIcon icon={[prefix, icon]} color={color} disabled={disabled} id={id} fontSize={theme.spacing[size]} isClickable={!!onClick} title={title} onClick={onClick} />
   )
 }
 export default Icon
