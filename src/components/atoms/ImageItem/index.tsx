@@ -15,7 +15,7 @@ const Container = styled.div(
     width: 100%;
     border: solid ${theme.palette.colors.background.light} ${theme.border.width.sm}px;
     background-color: ${theme.palette.colors.background.dark};
-    border-radius: ${theme.border.radius.sm}px;
+    border-radius: ${theme.border.radius}px;
     align-items: center;
     padding: ${theme.spacing.xxs}px;
     transition: all 0.2s ease;
@@ -33,7 +33,7 @@ const Thmubnail = styled.img(
     return `
     width: ${size}px;
     height: ${size}px;
-    border-radius: ${theme.border.radius.sm}px;
+    border-radius: ${theme.border.radius}px;
   `
   }
 )

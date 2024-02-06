@@ -4,11 +4,14 @@ import GoogleCalendar, { GoogleCalendarProperties } from '../../widgets/GoogleCa
 import { StoredWidgetState } from '../../../store/features/storedWidgetsSlice'
 import Button from '../../atoms/Button'
 import GoogleSheets, { GoogleSheetProperties } from '../../widgets/GoogleSheets'
+import SimpleNotepad, { SimpleNotepadProperties } from '../../widgets/SimpleNotepad'
+import MDNotepad, { MDNotepadProperties } from '../../widgets/MDNotepad'
+import TodoList, { TodoListProperties } from '../../widgets/TodoList'
 
 const WidgetWrapper = (): JSX.Element => {
   const { widgets } = useAppSelector((state) => state.storedWidgets)
 
-  const [isEditMode, setIsEditMode] = useState(true)
+  const [isEditMode, setIsEditMode] = useState(false)
 
   const toRender = widgets.map((widget: StoredWidgetState) => {
     switch (widget.type) {
@@ -28,7 +31,34 @@ const WidgetWrapper = (): JSX.Element => {
             editMode={isEditMode}
             {...widget}
             {...(widget.widgetValues as GoogleSheetProperties)}
-            // would be nice if there is a better way of doing this
+          // would be nice if there is a better way of doing this
+          />
+        )
+      case 'SimpleNotepad':
+        return (
+          <SimpleNotepad
+            key={widget.id}
+            editMode={isEditMode}
+            {...widget}
+            {...(widget.widgetValues as SimpleNotepadProperties)}
+          />
+        )
+      case 'MDNotepad':
+        return (
+          <MDNotepad
+            key={widget.id}
+            editMode={isEditMode}
+            {...widget}
+            {...(widget.widgetValues as MDNotepadProperties)}
+          />
+        )
+      case 'TodoList':
+        return (
+          <TodoList
+            key={widget.id}
+            editMode={isEditMode}
+            {...widget}
+            {...(widget.widgetValues as TodoListProperties)}
           />
         )
       default:

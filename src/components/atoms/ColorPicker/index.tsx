@@ -48,7 +48,7 @@ const ColorPreview = styled.div<{ color: string, isClickable: boolean }>(
       width: ${theme.spacing.xxl}px;
       height: ${theme.spacing.xxl}px;
       background-color: ${color};
-      border-radius: ${theme.border.radius.sm}px;
+      border-radius: ${theme.border.radius}px;
       cursor: ${isClickable ? 'pointer' : 'not-allowed'};
       outline: ${theme.border.width.sm}px solid ${isClickable ? 'none' : `${theme.palette.colors.disabled.main}`};
     `

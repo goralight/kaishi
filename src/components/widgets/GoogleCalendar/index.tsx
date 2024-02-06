@@ -18,7 +18,7 @@ const GoogleCalendar: React.FC<GoogleCalendarProps> = ({
   zIndex,
   xy,
   wh,
-  originalWh,
+  minWH,
   scale,
   src,
   calendarWidth,
@@ -33,7 +33,7 @@ const GoogleCalendar: React.FC<GoogleCalendarProps> = ({
       editMode={editMode}
       wh={wh}
       xy={xy}
-      originalWh={originalWh}
+      minWH={minWH}
       zIndex={zIndex}
       scale={scale}
     >

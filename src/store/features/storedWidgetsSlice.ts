@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { GoogleCalendarProperties } from '../../components/widgets/GoogleCalendar'
 import { GoogleSheetProperties } from '../../components/widgets/GoogleSheets'
+import { SimpleNotepadProperties } from '../../components/widgets/SimpleNotepad'
+import { MDNotepadProperties } from '../../components/widgets/MDNotepad'
+import { TodoListProperties } from '../../components/widgets/TodoList'
 
-type WidgetValues = GoogleCalendarProperties | GoogleSheetProperties
+type WidgetValues = GoogleCalendarProperties | GoogleSheetProperties | SimpleNotepadProperties | MDNotepadProperties | TodoListProperties
 
 export interface WidgetProperties {
   id: string
@@ -10,7 +13,7 @@ export interface WidgetProperties {
   type: string
   wh: { w: number, h: number }
   xy: { x: number, y: number }
-  originalWh: { w: number, h: number }
+  minWH: { w: number, h: number }
   zIndex: number
   scale: { x: number, y: number }
   // pageId ?

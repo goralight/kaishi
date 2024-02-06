@@ -39,7 +39,7 @@ export interface StandardTheme {
   palette: Palette,
   border: {
     width: Sizing
-    radius: Sizing
+    radius: number
   },
   spacing: ExtraSizing
 }
@@ -103,11 +103,7 @@ export const standardTheme: StandardTheme = {
       md: 2,
       lg: 4
     },
-    radius: {
-      sm: 8,
-      md: 16,
-      lg: 24
-    }
+    radius: 2
   },
   spacing: {
     xxs: 8,

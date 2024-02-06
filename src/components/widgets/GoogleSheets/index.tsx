@@ -18,7 +18,7 @@ const GoogleSheets = ({
   zIndex,
   xy,
   wh,
-  originalWh,
+  minWH,
   scale,
   src
 }: GoogleSheetProps): JSX.Element => {
@@ -31,7 +31,7 @@ const GoogleSheets = ({
       editMode={editMode}
       wh={wh}
       xy={xy}
-      originalWh={originalWh}
+      minWH={minWH}
       zIndex={zIndex}
       scale={scale}
     >

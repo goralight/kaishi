@@ -21,7 +21,7 @@ const Status = Styled.span<{ type: Status, clickable: boolean }>(
       flex: 1;
       justify-content: flex-start;
       border: solid 1px ${color};
-      border-radius: ${theme.border.radius.md}px;
+      border-radius: ${theme.border.radius}px;
       padding: ${theme.spacing.xxs}px;
       color: ${color};
 

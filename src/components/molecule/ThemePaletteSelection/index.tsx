@@ -42,6 +42,7 @@ const ThemePaletteSelection: React.FC<ThemePaletteSelectionProps> = ({
   }
 
   const [themeColors, setThemeColors] = useState<Colors>(selectedTheme.theme.palette.colors)
+  const [themeRadius, setThemeRadius] = useState(selectedTheme.theme.border.radius)
 
   const colorsNames = Object.keys(standardTheme.palette.colors) as (keyof Colors)[]
 
@@ -53,6 +54,10 @@ const ThemePaletteSelection: React.FC<ThemePaletteSelectionProps> = ({
         palette: {
           ...selectedTheme.theme.palette,
           colors: themeColors
+        },
+        border: {
+          ...selectedTheme.theme.border,
+          radius: themeRadius
         }
       }
     }))
@@ -66,6 +71,10 @@ const ThemePaletteSelection: React.FC<ThemePaletteSelectionProps> = ({
         ))}
       </AccordionContainer>
       <Button color='primary' size='xxs' onClick={handleThemeSave}>Save</Button>
+      <div>
+        <label htmlFor="radius">radius</label>
+        <input id='radius' type="number" value={themeRadius} onChange={(e): void => { setThemeRadius(parseInt(e.target.value)) }} />
+      </div>
     </Container>
   )
 }

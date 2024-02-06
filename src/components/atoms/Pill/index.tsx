@@ -23,7 +23,7 @@ const StyledSpan = styled.span<StyledSpanProps>(
     return `
       display: inline-block;
       padding: ${theme.spacing.xxs}px;
-      border-radius: ${theme.border.radius.sm}px;
+      border-radius: ${theme.border.radius}px;
       background-color: ${backgroundColor};
       color: ${fontColor};
       font-size: ${theme.spacing.xs}px;

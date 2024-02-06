@@ -31,7 +31,7 @@ const StyledLabel = styled.label<StyledInputProps>(
       color: ${fontColor};
       cursor: ${disabled ? 'default' : 'pointer'};
       border: none;
-      border-radius: ${theme.border.radius.sm}px;
+      border-radius: ${theme.border.radius}px;
       padding: ${theme.spacing[scale]}px;
       transition: background-color 0.2s ease;
 

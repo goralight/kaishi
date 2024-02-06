@@ -38,7 +38,7 @@ const StyledSummary = styled.summary<{ color: keyof Colors | undefined }>(
     return `
       padding: ${theme.spacing.xs}px;
       background-color: ${color ? theme.palette.colors[color].main : theme.palette.colors.background.main};
-      border-radius: ${theme.border.radius.sm}px;
+      border-radius: ${theme.border.radius}px;
       cursor: pointer;
       list-style: none;
     `
@@ -50,8 +50,8 @@ const Content = styled.div<{ color?: keyof Colors }>(
     return `
       padding: ${theme.spacing.xs}px;
       background-color: ${color ? theme.palette.colors[color].dark : theme.palette.colors.background.dark};
-      border-bottom-left-radius: ${theme.border.radius.sm}px;
-      border-bottom-right-radius: ${theme.border.radius.sm}px;
+      border-bottom-left-radius: ${theme.border.radius}px;
+      border-bottom-right-radius: ${theme.border.radius}px;
     `
   }
 )

@@ -39,8 +39,8 @@ const Settings: React.FC<SettingsProps> = ({
       name: 'Calendar',
       type: 'GoogleCalendar',
       wh: { w: 700, h: 700 },
-      xy: { x: 0, y: 0 },
-      originalWh: { w: 700, h: 700 },
+      xy: { x: 200, y: 200 },
+      minWH: { w: 700, h: 700 },
       zIndex: 0,
       scale: { x: 1, y: 1 },
       widgetValues: {
@@ -57,12 +57,60 @@ const Settings: React.FC<SettingsProps> = ({
       name: 'Google Sheets',
       type: 'GoogleSheets',
       wh: { w: 700, h: 700 },
-      xy: { x: 0, y: 0 },
-      originalWh: { w: 700, h: 700 },
+      xy: { x: 200, y: 200 },
+      minWH: { w: 700, h: 700 },
       zIndex: 0,
       scale: { x: 1, y: 1 },
       widgetValues: {
         src: 'https://docs.google.com/spreadsheets/d/1fn9RXbWujmt4VhIf3mitnTVf73rOwDr09wdG-qOblE8/edit?usp=sharing&amp;widget=true&amp;rm=minimal&amp;headers=false'
+      }
+    }))
+  }
+
+  const handleSimpleNotesWidget = (): void => {
+    dispatch(addWidget({
+      id: uuidv4(),
+      name: 'Simple Notes',
+      type: 'SimpleNotepad',
+      wh: { w: 700, h: 700 },
+      xy: { x: 200, y: 200 },
+      minWH: { w: 200, h: 200 },
+      zIndex: 0,
+      scale: { x: 1, y: 1 },
+      widgetValues: {
+        notes: 'Hello, world!'
+      }
+    }))
+  }
+
+  const handleMDNotepadWidget = (): void => {
+    dispatch(addWidget({
+      id: uuidv4(),
+      name: 'Markdown Notes',
+      type: 'MDNotepad',
+      wh: { w: 700, h: 700 },
+      xy: { x: 200, y: 200 },
+      minWH: { w: 200, h: 200 },
+      zIndex: 0,
+      scale: { x: 1, y: 1 },
+      widgetValues: {
+        markdown: '# Hello, world!'
+      }
+    }))
+  }
+
+  const handleTodoList = (): void => {
+    dispatch(addWidget({
+      id: uuidv4(),
+      name: 'Todo List',
+      type: 'TodoList',
+      wh: { w: 700, h: 700 },
+      xy: { x: 200, y: 200 },
+      minWH: { w: 200, h: 200 },
+      zIndex: 0,
+      scale: { x: 1, y: 1 },
+      widgetValues: {
+        todoList: []
       }
     }))
   }
@@ -104,6 +152,7 @@ const Settings: React.FC<SettingsProps> = ({
           <>
             <p>editing: test-{currentEditingTheme}</p>
             <ThemePaletteSelection themeId={currentEditingTheme} />
+            
             <Button onClick={(): void => { setCurrentEditingTheme('') }}>Close</Button>
           </>
         )}
@@ -113,6 +162,12 @@ const Settings: React.FC<SettingsProps> = ({
         <Button onClick={(): void => { handleAddCalendarWidget() }}>Add Calendar Widget</Button>
         <br />
         <Button onClick={(): void => { handleAddGoogleSheetsWidget() }}>Add Google Sheets Widget</Button>
+        <br />
+        <Button onClick={(): void => { handleSimpleNotesWidget() }}>Add Simple Notes Widget</Button>
+        <br />
+        <Button onClick={(): void => { handleMDNotepadWidget() }}>Add MD Notes Widget</Button>
+        <br />
+        <Button onClick={(): void => { handleTodoList() }}>Add Todo List Widget</Button>
       </Accordion>
     </SlideIn>
   )

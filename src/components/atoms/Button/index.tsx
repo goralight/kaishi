@@ -28,7 +28,7 @@ const StyledButton = Styled.button<StyledButtonProps>(
       transition: background-color 0.2s ease;
       padding: ${theme.spacing[size]}px;
       height: fit-content;
-      border-radius: ${theme.border.radius.sm}px;
+      border-radius: ${theme.border.radius}px;
       border: none;
       cursor: pointer;
       color: ${fontColor};

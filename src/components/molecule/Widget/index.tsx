@@ -27,6 +27,8 @@ const WidgetContentContainer = styled.div<{ editMode: boolean }>(
       width: fit-content;
       transform-origin: 0 0;
 
+      overflow: auto;
+
       & > * {
         pointer-events: ${editMode ? 'none' : 'all'};
       }
@@ -48,7 +50,7 @@ const Tools = styled.div<{ isVisible: boolean }>(
       transition: opacity 0.2s ease;
       opacity: ${isVisible ? 1 : 0};
       background-color: ${theme.palette.colors.background.main};
-      border-radius: ${theme.border.radius.sm}px;
+      border-radius: ${theme.border.radius}px;
       padding: 8px;
       gap: 4px;
     `
@@ -89,7 +91,7 @@ const Widget: React.FC<WidgetProps> = ({
   name,
   wh,
   xy,
-  originalWh,
+  minWH,
   zIndex,
   scale,
   editMode,
@@ -101,8 +103,8 @@ const Widget: React.FC<WidgetProps> = ({
   const contentContainerRef = React.useRef<HTMLDivElement>(null)
 
   const [showTools, setShowTools] = useState(false)
-  const [lockAspectRatio, setLockAspectRatio] = useState(true)
-  const [shouldScale, setShouldScale] = useState(true)
+  const [lockAspectRatio, setLockAspectRatio] = useState(false)
+  const [shouldScale, setShouldScale] = useState(false)
   const [_wh, _setWh] = useState(wh)
   const [_xy, _setXy] = useState(xy)
 
@@ -130,7 +132,7 @@ const Widget: React.FC<WidgetProps> = ({
             w: offsetWidth,
             h: offsetHeight
           },
-          originalWh: {
+          minWH: {
             w: offsetWidth,
             h: offsetHeight
           }
@@ -227,12 +229,13 @@ const Widget: React.FC<WidgetProps> = ({
       onDragStop={handleOnDragStop}
       lockAspectRatio={lockAspectRatio}
       size={{ width: wh.w, height: wh.h }} // not sure if needed
-      minWidth={originalWh.w}
-      minHeight={originalWh.h}
+      minWidth={minWH.w}
+      minHeight={minWH.h}
       position={{ x: xy.x, y: xy.y }}
       dragAxis={editMode ? 'both' : 'none'}
       editMode={editMode}
       style={{ zIndex, cursor: editMode ? 'move' : 'inherit' }}
+      className='StyledRND'
     >
       {editMode ? (
         <Tools
